@@ -11,3 +11,8 @@ postgresql-9.6-postgis-scripts
 postgis 2.4 (included in ubuntugis)  
 libgdal-dev  
 gdal  
+
+## setup dev postgresql
+sudo -u postgres psql -c "create database local_gallery;"
+sudo -u postgres psql -c "alter user postgres with encrypted password 'postgres';"
+sudo -u postgres psql -c "create extension postgis;"
