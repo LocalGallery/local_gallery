@@ -14,5 +14,5 @@ gdal
 
 ## setup dev postgresql
 sudo -u postgres psql -c "create database local_gallery;"  
-sudo -u postgres psql -c "alter user postgres with encrypted password 'postgres';"  
-sudo -u postgres psql -c "create extension postgis;"  
+sudo -u postgres psql local_gallery -c "alter user postgres with encrypted password 'postgres';"  
+sudo -u postgres psql local_gallery -c "create extension postgis;"  
