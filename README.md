@@ -3,9 +3,10 @@ dev local_gallery
 
 # some requirements
 ## TODO: check what of those are actually necessary (might be redundant)
-libgdal-dev
-gdal
-postgresql 10.1
-python 3.6.3
-postgis 2.4 (ubuntugis)
-postgresql-9.6-postgis-scripts
+python 3.6.3  
+postgresql 10.1  
+postgresql-10-postgis-scripts  
+postgresql-9.6-postgis-scripts  
+postgis 2.4 (included in ubuntugis)  
+libgdal-dev  
+gdal  
