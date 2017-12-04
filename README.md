@@ -1,18 +1,29 @@
-# local_gallery
-dev local_gallery
+# Setup Development Environment
+Prerequisites: [Python](https://www.python.org/downloads/) (>= 3.6.3), [pip](https://pip.pypa.io/en/stable/installing/) (>= 9.0.1), [PostgreSQL](https://www.postgresql.org/download/) (>= 10.1)
 
-# some requirements
-## TODO: check what of those are actually necessary (might be redundant)
-python 3.6.3  
-django 1.11.7  
-postgresql 10.1  
-postgresql-10-postgis-scripts  
-postgresql-9.6-postgis-scripts  
-postgis 2.4 (included in ubuntugis)  
-libgdal-dev  
-gdal  
-
-## setup dev postgresql
-sudo -u postgres psql -c "create database local_gallery;"  
-sudo -u postgres psql local_gallery -c "alter user postgres with encrypted password 'postgres';"  
-sudo -u postgres psql local_gallery -c "create extension postgis;"  
+1. Clone the repository and create a virtual environment (activate it whenever you're working on the project):
+```
+git clone https://github.com/LocalGallery/local_gallery.git
+cd local_gallery
+python3 -m venv dev
+source dev/bin/activate
+```
+2. Create database:
+```
+sudo -u postgres psql -c "create database local_gallery;"
+sudo -u postgres psql local_gallery -c "alter user postgres with encrypted password 'postgres';"
+sudo -u postgres psql local_gallery -c "create extension postgis;"
+```
+3. Create an admin account:
+```
+python manage.py createsuperuser
+```
+4. Migrate:
+```
+python manage.py makemigrations
+python manage.py migrate
+```
+5. Run the server:
+```
+python manage.py runserver
+```
