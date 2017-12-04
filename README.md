@@ -8,22 +8,24 @@ cd local_gallery
 python3 -m venv dev
 source dev/bin/activate
 ```
-2. Create database:
+2. Requirements:
+```
+```
+3. Create database:
 ```
 sudo -u postgres psql -c "create database local_gallery;"
 sudo -u postgres psql local_gallery -c "alter user postgres with encrypted password 'postgres';"
 sudo -u postgres psql local_gallery -c "create extension postgis;"
 ```
-3. Create an admin account:
+4. Migrate:
+```
+python manage.py migrate
+```
+5. Create an admin account:
 ```
 python manage.py createsuperuser
 ```
-4. Migrate:
-```
-python manage.py makemigrations
-python manage.py migrate
-```
-5. Run the server:
+6. Run the server:
 ```
 python manage.py runserver
 ```
