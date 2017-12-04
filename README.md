@@ -1,5 +1,5 @@
 # Setup Development Environment
-Prerequisites: [Python](https://www.python.org/downloads/) (>= 3.6.3), [pip](https://pip.pypa.io/en/stable/installing/) (>= 9.0.1), [PostgreSQL](https://www.postgresql.org/download/) (>= 10.1)
+Prerequisites: [Python](https://www.python.org/downloads/) (>= 3.6.3), [pip](https://pip.pypa.io/en/stable/installing/) (>= 9.0.1), [PostgreSQL](https://www.postgresql.org/download/) (>= 10.1), [PostGIS](http://postgis.net/install/) (>= 2.4.2)
 
 1. Clone the repository and create a virtual environment (activate it whenever you're working on the project):
 ```
@@ -8,11 +8,13 @@ cd local_gallery
 python3 -m venv dev
 source dev/bin/activate
 ```
-2. Requirements:
+2. Install required Python packages:
 ```
+pip install -r requirements.txt
 ```
-3. Create database:
+3. Start the database service and create database:
 ```
+service postgresql start
 sudo -u postgres psql -c "create database local_gallery;"
 sudo -u postgres psql local_gallery -c "alter user postgres with encrypted password 'postgres';"
 sudo -u postgres psql local_gallery -c "create extension postgis;"
