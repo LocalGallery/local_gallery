@@ -8,6 +8,8 @@ class Location(models.Model):
     point = models.PointField()
     information = models.TextField(max_length=15,default='localtion info')
 
+    def __str__(self):
+        return "[{}]: {}".format(self.id, self.name)
 
 class Photo(models.Model):
     name = models.TextField(max_length=100,default='photo desc')

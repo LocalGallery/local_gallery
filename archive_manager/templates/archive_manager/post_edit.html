@@ -1,10 +1,20 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <title>$Title$</title>
-</head>
-<body>
-$END$
-</body>
-</html>
+{% extends 'archive_manager/base.html' %}
+
+{% block content %}
+<h1>Photo Info and Upload Form</h1>
+    <div class="edit-header">
+        <h1>New Photo</h1>
+    </div>
+    <form method="post" class="post-form" enctype="multipart/form-data">{% csrf_token %}
+        {% for hidden in form.hidden_fields %}
+            {{ hidden }}
+        {% endfor %}
+{# Include the visible fields #}
+    {% for field in form.visible_fields %}
+    <div class="form-group">
+        {{ field.label_tag }} {{ field }}
+    </div>
+    {% endfor %}
+        <button type="submit" class="save btn btn-default">Save</button>
+    </form>
+{% endblock %}

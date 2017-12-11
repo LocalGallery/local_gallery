@@ -9,8 +9,8 @@ class PostPhoto(forms.ModelForm):
         model = Photo
         widgets = {
             'content': forms.Textarea(attrs={'cols': 80, 'rows': 20}),
-            'photo_description': forms.TextInput(attrs={'class': 'form-control'}),
+            'name': forms.TextInput(attrs={'class': 'form-control'}),
             'photo_file': forms.FileInput(attrs={'class': 'form-control-file'}),
-            'photo_date_taken': forms.DateInput(attrs={'class': 'form-'}),
+            'date_taken': forms.DateInput(attrs={'class': 'form-'}),
         }
-        fields = ('photo_description', 'photo_file', 'photo_date_taken')
+        fields = ('name', 'photo_file', 'date_taken', 'location')

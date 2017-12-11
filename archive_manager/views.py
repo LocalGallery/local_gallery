@@ -1,4 +1,7 @@
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, render_to_response, redirect
+from django.urls import reverse
+
 from .models import Location, Photo
 
 # Create your views here.
@@ -9,12 +12,18 @@ def home(request):
     return render(request, 'archive_manager/index.html', {'locations': locations})
 
 def post_new(request):
-    form = PostPhoto(request.POST)
-    if form.is_valid():
-        post = form.save(commit=False)
-        post.author = request.user
-        post.save()
-    return render(request, 'archive_manager/post_edit.html', {'form': form})
+    if request.method == 'GET':
+        form = PostPhoto(request.GET, request.FILES)
+        return render(request, 'archive_manager/post_edit.html', {'form': form})
+    elif request.method == 'POST':
+        form = PostPhoto(request.POST, request.FILES)
+        if form.is_valid():
+            post = form.save(commit=False)
+        # if request.user.is_authenticated:
+        #     post.author = request.user
+            post.save()
+            return HttpResponseRedirect(reverse('archive_gallery', args=[post.location.id]))
+
 
 
 def archive_gallery(request, id):

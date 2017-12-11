@@ -7,6 +7,19 @@
     text-align: left;
     color: #2a6829;
 }
+.column {
+    float: left;
+    width: 25%;
+    padding: 10px;
+}
+
+.column img {
+    margin-top: 12px;
+    border-radius: 4px;
+    width: 150px;
+    height:150px;
+}
+
 li a {
     color: green;
 }
