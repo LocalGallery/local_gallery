@@ -1,0 +1,13 @@
+{% extends "archive_manager/base.html" %}
+{% block title %}Local Gallery{% endblock %}
+{% block content %}
+
+{% for location in locations%}
+    {{location.name}}
+    {{location.id}}
+{% endfor %}
+
+
+<h1>Hello local gallery</h1>
+
+{% endblock %}

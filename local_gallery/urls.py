@@ -18,6 +18,9 @@ from django.contrib import admin
 from archive_manager import views
 
 urlpatterns = [
+    url(r'^$', views.home, name="home"),
     url(r'^admin/', admin.site.urls),
     url(r'^post/new/$', views.post_new, name='post_new'),
+    url(r'^archive-gallery/(?P<id>[^/]+)/$', views.archive_gallery, name="archive gallery"),
+
 ]

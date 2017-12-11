@@ -1,0 +1,14 @@
+{% extends "archive_manager/base.html" %}
+{% block title %}{{location.name}}'s Archive Gallery{% endblock %}
+{% block content %}
+hello archive manager
+    <h4><b>{{ location.name }}</b></h4>
+
+{% for photo in archive_photos %}
+  <div class="thumbnail col-xs-3" style="margin: 4%; text-align:center; border: none;">
+    <img src="{{MEDIA_URL}}{{photo.photo_file}}" alt="{{photo.name}}" style="width: 150px; height:150px;"/>
+  </div>
+{% endfor %}
+
+
+{% endblock %}
