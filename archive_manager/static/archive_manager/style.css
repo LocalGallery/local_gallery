@@ -1,0 +1,12 @@
+.page-header {
+    text-align: center;
+    color: #61b061;
+}
+.edit-header {
+    font-size: 1em;
+    text-align: left;
+    color: #2a6829;
+}
+li a {
+    color: green;
+}
