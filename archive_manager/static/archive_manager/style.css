@@ -1,4 +1,6 @@
 .page-header {
+    margin-top: 70px;
+    margin-left: 70px;
     text-align: center;
     color: #61b061;
 }
@@ -22,4 +24,98 @@
 
 li a {
     color: green;
+}
+
+.content {
+    padding-left:100px;
+}
+
+/*-------------------------------*/
+/*             Sidebar           */
+/*-------------------------------*/
+
+#logo {
+    float: left;
+
+}
+
+#menuToggle a
+{
+  text-decoration: none;
+  color: #232323;
+  transition: color 0.3s ease;
+}
+
+#menuToggle a:hover
+{
+  text-decoration: none;
+  color: green;
+}
+
+#menuToggle
+{
+  display: block;
+  position: relative;
+  top: 100px;
+  left: 60px;
+  z-index: 1;
+  -webkit-user-select: none;
+  user-select: none;
+}
+
+#menuToggle input
+{
+  display: block;
+  width: 40px;
+  height: 32px;
+  position: absolute;
+  top: -7px;
+  left: -5px;
+  cursor: pointer;
+  opacity: 0; /* hide this */
+  z-index: 2; /* and place it over the hamburger */
+  -webkit-touch-callout: none;
+}
+
+.hamburger
+{
+  display: block;
+  width: 33px;
+  height: 4px;
+  margin-bottom: 5px;
+  position: relative;
+  background: black;
+  z-index: 1;
+  transform-origin: 4px 0px;
+}
+
+#menu
+{
+  position: absolute;
+  width: 250px;
+  margin: -100px 0 0 -50px;
+  padding: 50px;
+  padding-top: 150px;
+  background: transparent;
+  list-style-type: none;
+  -webkit-font-smoothing: antialiased;
+  /* to stop flickering of text in safari */
+
+  transform-origin: 0% 0%;
+  transform: translate(-100%, 0);
+  /* this is what actually closes the menu */
+
+  transition: transform 0.5s cubic-bezier(0.77,0.2,0.05,1.0);
+  /* this adds animation to it*/
+}
+
+#menu li
+{
+  padding: 10px 0;
+  font-size: 22px;
+}
+
+#menuToggle input:checked ~ ul
+{
+  transform: none;
 }
