@@ -1,33 +1,62 @@
 # Setup Development Environment
-Prerequisites: [Python](https://www.python.org/downloads/) (>= 3.6.3), [pip](https://pip.pypa.io/en/stable/installing/) (>= 9.0.1), [PostgreSQL](https://www.postgresql.org/download/) (>= 10.1), [PostGIS](http://postgis.net/install/) (>= 2.4.2)
+* **⚠ NOTE! ⚠** : These instructions are targeting DEVELOPMENT machines and are **INSECURE** for production.
 
-1. Clone the repository and create a virtual environment (activate it whenever you're working on the project):
-```
-git clone https://github.com/LocalGallery/local_gallery.git
-cd local_gallery
-python3 -m venv dev
-source dev/bin/activate
-```
-2. Install required Python packages:
-```
-pip install -r requirements.txt
-```
-3. Start the database service and create database:
-```
-service postgresql start
-sudo -u postgres psql -c "create database local_gallery;"
-sudo -u postgres psql local_gallery -c "alter user postgres with encrypted password 'postgres';"
-sudo -u postgres psql local_gallery -c "create extension postgis;"
-```
+## Prerequisites:
+
+* [Python](https://www.python.org/downloads/) (>= 3.6.3)
+* PostgreSQL & PostGIS. Installation help [here](https://github.com/nonZero/setups).
+* [pipenv](https://docs.pipenv.org/)
+
+## Create DB
+* Note:  This also creates a superuser user called `local_gallery`.
+* Make sure your database is running.
+* Linux:
+
+        sudo -u postgres createuser local_gallery -s
+        sudo -u postgres psql -c "alter user local_gallery with encrypted password 'local_gallery';"
+        sudo -u postgres createdb local_gallery -O local_gallery
+
+* Windows (supply password for postgres user):
+
+        createuser --username=postgres local_gallery -s
+        psql --username=postgres -c "alter user local_gallery with encrypted password 'local_gallery';"
+        createdb --username=postgres local_gallery -O local_gallery
+
+## Setup
+
+1. Clone the repository:
+
+        git clone https://github.com/LocalGallery/local_gallery.git
+
+2. Create a virtual env and install required Python packages:
+
+        pipenv install
+
+3. Activate the virtualenv:
+
+        pipenv shell
+
+       Your python is here (needed for pycharm):
+
+       * linux:
+
+             which python
+
+       * Windows:
+
+             where python
+
+
 4. Migrate:
-```
-python manage.py migrate
-```
+
+        python manage.py migrate
+
 5. Create an admin account:
-```
-python manage.py createsuperuser
-```
-6. Run the server:
-```
-python manage.py runserver
-```
+
+        python manage.py createsuperuser
+
+## Run
+
+Run the server:
+
+    python manage.py runserver
