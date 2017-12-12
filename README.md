@@ -4,7 +4,7 @@
 ## Prerequisites:
 
 * [Python](https://www.python.org/downloads/) (>= 3.6.3)
-* PostgreSQL & PostGIS. Installation help [here]<https://github.com/nonZero/setups>.
+* PostgreSQL & PostGIS. Installation help [here](https://github.com/nonZero/setups).
 * [pipenv](https://docs.pipenv.org/)
 
 ## Create DB
