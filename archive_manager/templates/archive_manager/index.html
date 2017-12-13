@@ -4,8 +4,9 @@
 <div class="row">
 {% for location in locations%}
     <div class="col-md-8">
-        {{location.name}}
-        {{location.id}}
+        <a href="{% url 'archive_gallery' id=location.id %}">
+            {{location.name}}
+        </a>
     </div>
 {% endfor %}
 </div>
