@@ -7,9 +7,11 @@ from .models import Location, Photo
 # Create your views here.
 from .forms import PostPhoto
 
+
 def home(request):
     locations = Location.objects.all()
     return render(request, 'archive_manager/index.html', {'locations': locations})
+
 
 def post_new(request):
     if request.method == 'GET':
@@ -23,7 +25,8 @@ def post_new(request):
         #     post.author = request.user
             post.save()
             return HttpResponseRedirect(reverse('archive_gallery', args=[post.location.id]))
-
+        else:
+            return render(request, 'archive_manager/post_edit.html', {'form': form})
 
 
 def archive_gallery(request, id):
