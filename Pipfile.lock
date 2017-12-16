@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "05951a94a8b4c676021d85f36c46602cd255df883fd820b8ec01d9cf83aa7d9b"
+            "sha256": "6a40e6e70479c95aee2f481e774867b4fa97508314e20225c81ea456cc09231d"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -9,9 +9,9 @@
             "os_name": "posix",
             "platform_machine": "x86_64",
             "platform_python_implementation": "CPython",
-            "platform_release": "4.13.12-1-ARCH",
+            "platform_release": "4.14.3-1-ARCH",
             "platform_system": "Linux",
-            "platform_version": "#1 SMP PREEMPT Wed Nov 8 11:54:06 CET 2017",
+            "platform_version": "#1 SMP PREEMPT Thu Nov 30 18:33:13 UTC 2017",
             "python_full_version": "3.6.3",
             "python_version": "3.6",
             "sys_platform": "linux"
@@ -33,6 +33,13 @@
                 "sha256:9614851d4a7ff8cbd32b73c6076441f377c45a5bbff7e771798fb02c43c31f47"
             ],
             "version": "==2.0"
+        },
+        "djangorestframework": {
+            "hashes": [
+                "sha256:79268055755125caaebface3acbe13150bbc3a83b78e9bf1a1abfde7ab0c5231",
+                "sha256:067960e5e9e5586d3b2d53a1d626c4800dc33cd8309487d404fc63355674556f"
+            ],
+            "version": "==3.7.3"
         },
         "olefile": {
             "hashes": [
