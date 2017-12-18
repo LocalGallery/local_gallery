@@ -36,5 +36,5 @@ def archive_gallery(request, id):
     # archive_photos = [photo for photo in all_photos if photo.photo_location.id == id]
     return render(request, "archive_manager/archive_gallery.html", {
         'location': location,
-        'archive_photos': location.photo_set.all(),
+        'archive_photos': location.photos.all(),
         })
