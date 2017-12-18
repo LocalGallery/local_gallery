@@ -10,7 +10,8 @@ from .forms import PostPhoto
 
 def home(request):
     locations = Location.objects.all()
-    return render(request, 'archive_manager/index.html', {'locations': locations})
+    photos = Photo.objects.all()
+    return render(request, 'archive_manager/index.html', {'locations': locations, 'photos': photos})
 
 
 def post_new(request):

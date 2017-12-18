@@ -1,13 +1,34 @@
 {% extends "archive_manager/base.html" %}
 {% block title %}Local Gallery{% endblock %}
+{% load static %}
 {% block content %}
 <div class="row">
-{% for location in locations%}
-    <div class="col-md-8">
-        <a href="{% url 'archive_gallery' id=location.id %}">
-            {{location.name}}
-        </a>
+    <div class="blocks">
+        <ul>
+          {% for location in locations %}
+                <div class="col-md-12">
+                    <div class="preview col-md-10">
+                        <li><a href="/archive-gallery/{{location.id}}/"><h3>{{ location.name }}</h3></a></li>
+                        <li><strong>Name:</strong>{{ location.name }}</li>
+                        <li><strong>Information:</strong>{{location.information}}</li>
+                        <div class="row">
+                            <figure class="thumbnail col-sm-3">
+                            <a  href="{% url 'post_new' %}"><img src="{% static 'archive_manager/images/add.png' %}"></a>
+                                <figcaption>Add a photo</figcaption>
+                            </figure>
+                            {% for photo in photos|slice:":3" %}
+                                {% if photo.location == location %}
+                                    <figure class="thumbnail col-sm-3">
+                                        <img src="{{photo.photo_file.url}}" alt="{{photo.name}}"/>
+                                        <figcaption>{{photo.name}}</figcaption>
+                                    </figure>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    </div>
+                </div>
+          {% endfor %}
+        </ul>
     </div>
-{% endfor %}
 </div>
 {% endblock %}

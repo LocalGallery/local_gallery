@@ -18,4 +18,9 @@ class Photo(models.Model):
     date_taken = models.DateField()
     date_added = models.DateField(blank=True, null=True)
     long_desc = forms.CharField(widget=forms.Textarea(attrs={'cols': 10, 'rows': 20}))
-    tags_array = ArrayField(models.CharField(max_length=20),default=list)
+    tags_array = ArrayField(models.CharField(max_length=20),default=list)    def __str__(self):
+    def __str__(self):
+        return self.name
+
+    class Meta:
+        ordering = ('location', 'date_taken', 'name')

@@ -28,6 +28,7 @@ li a {
 
 .content {
     padding-left:100px;
+    padding-top:50px;
 }
 
 /*-------------------------------*/
@@ -56,8 +57,8 @@ li a {
 {
   display: block;
   position: relative;
-  top: 100px;
-  left: 60px;
+  top: 170px;
+  left: 63px;
   z-index: 1;
   -webkit-user-select: none;
   user-select: none;
@@ -69,7 +70,7 @@ li a {
   width: 40px;
   height: 32px;
   position: absolute;
-  top: -7px;
+  top: -3px;
   left: -5px;
   cursor: pointer;
   opacity: 0; /* hide this */
@@ -112,10 +113,69 @@ li a {
 #menu li
 {
   padding: 10px 0;
-  font-size: 22px;
+  font-size: 14px;
 }
 
 #menuToggle input:checked ~ ul
 {
   transform: none;
+}
+
+.dropdown .dropdown-menu {
+    position: relative;
+    width: 100%;
+    padding-left: 70px;
+    margin: 0;
+    border-radius: 0;
+    border: none;
+    box-shadow: none;
+    background-color:transparent;
+}
+
+/*-------------------------------*/
+/*             blocks           */
+/*-------------------------------*/
+
+.blocks {
+    position: relative;
+    margin: 3%;
+}
+
+.blocks ul{
+    list-style: none;
+}
+
+.blocks .preview {
+    line-height: 170%;
+}
+
+.blocks .meta {
+    padding: 0;
+}
+
+.blocks .meta a {
+    font-size: 70%;
+}
+
+.blocks .meta li {
+    display: inline;
+}
+
+
+
+/*-------------------------------*/
+/*        thumbnails            */
+/*-------------------------------*/
+.thumbnail {
+    margin-top: 5%;
+}
+
+.thumbnail img, figcaption{
+    height: 150px;
+    width: 150px;
+    padding: 10px;
+}
+
+figcaption {
+    text-align: center;
 }
