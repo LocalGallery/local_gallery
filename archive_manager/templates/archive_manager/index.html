@@ -16,13 +16,11 @@
                             <a  href="{% url 'post_new' %}"><img src="{% static 'archive_manager/images/add.png' %}"></a>
                                 <figcaption>Add a photo</figcaption>
                             </figure>
-                            {% for photo in photos|slice:":3" %}
-                                {% if photo.location == location %}
+                            {% for photo in location.first_three %}
                                     <figure class="thumbnail col-sm-3">
                                         <img src="{{photo.photo_file.url}}" alt="{{photo.name}}"/>
                                         <figcaption>{{photo.name}}</figcaption>
                                     </figure>
-                                {% endif %}
                             {% endfor %}
                         </div>
                     </div>
