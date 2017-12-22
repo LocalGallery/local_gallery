@@ -19,11 +19,10 @@ from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
 
-from rest_framework import routers
+from rest_framework.urlpatterns import format_suffix_patterns
 
 from archive_manager import views
-from archive_manager.models import Location
-from archive_manager.serializers import Location
+
 
 urlpatterns = [
     path('', views.home, name="home"),
@@ -32,14 +31,14 @@ urlpatterns = [
     path('archive-gallery/<int:id>/', views.archive_gallery, name="archive_gallery")
 ]
 
-# Routers provide an easy way of automatically determining the URL conf.
-router = routers.DefaultRouter()
-router.register(r'locations', views.LocationViewSet)
-
+# REST API urls:
 urlpatterns += [
-    url(r'^', include(router.urls)),
+    url(r'^locations/$', views.LocationList.as_view()),
+    url(r'^locations/(?P<pk>[0-9]+)/$', views.LocationDetail.as_view()),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
 if settings.DEBUG:
     urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+
+urlpatterns = format_suffix_patterns(urlpatterns)
