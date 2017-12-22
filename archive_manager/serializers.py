@@ -10,7 +10,7 @@ class LocationSerializer(serializers.Serializer):
 
     def create(self, validated_data):
         return Location.objects.create(**validated_data)
-    
+
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
         instance.point = validated_data.get('point', instance.point)

@@ -2,7 +2,10 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, render_to_response, redirect
 from django.urls import reverse
 
+from rest_framework import viewsets
+
 from .models import Location, Photo
+from .serializers import LocationSerializer
 
 # Create your views here.
 from .forms import PostPhoto
@@ -38,3 +41,9 @@ def archive_gallery(request, id):
         'location': location,
         'archive_photos': location.photos.all(),
         })
+
+
+# ViewSets define the view behavior.
+class LocationViewSet(viewsets.ModelViewSet):
+    queryset = Location.objects.all()
+    serializer_class = LocationSerializer
