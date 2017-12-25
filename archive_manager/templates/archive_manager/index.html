@@ -2,31 +2,46 @@
 {% block title %}Local Gallery{% endblock %}
 {% load static %}
 {% block content %}
-<div class="row">
-    <div class="blocks">
-        <ul>
-          {% for location in locations %}
-                <div class="col-md-12">
-                    <div class="preview col-md-10">
-                        <li><a href="/archive-gallery/{{location.id}}/"><h3>{{ location.name }}</h3></a></li>
-                        <li><strong>Name:</strong>{{ location.name }}</li>
-                        <li><strong>Information:</strong>{{location.information}}</li>
-                        <div class="row">
-                            <figure class="thumbnail col-sm-3">
-                            <a  href="{% url 'post_new' %}"><img src="{% static 'archive_manager/images/add.png' %}"></a>
-                                <figcaption>Add a photo</figcaption>
-                            </figure>
-                            {% for photo in location.first_three %}
+    <link rel="stylesheet" href="{% static "vendor/leaflet/leaflet.css" %}"/>
+
+    <div class="row">
+        <div class="blocks">
+            <div id="map"></div>
+            <ul>
+                {% for location in locations %}
+                    <div class="col-md-12 location"
+                         data-lat="{{ location.point.coords.1|floatformat:5 }}"
+                         data-lng="{{ location.point.coords.0|floatformat:5 }}">
+                        <div class="preview col-md-10">
+                            <li><a href="/archive-gallery/{{ location.id }}/">
+                                <h3>{{ location.name }}</h3></a></li>
+                            <li><strong>Name:</strong><span class="name">{{ location.name }}</span></li>
+                            <li>
+                                <strong>Information:</strong>{{ location.information }}
+                            </li>
+                            <div class="row">
+                                <figure class="thumbnail col-sm-3">
+                                    <a href="{% url 'post_new' %}"><img
+                                            src="{% static 'archive_manager/images/add.png' %}"></a>
+                                    <figcaption>Add a photo</figcaption>
+                                </figure>
+                                {% for photo in location.first_three %}
                                     <figure class="thumbnail col-sm-3">
-                                        <img src="{{photo.photo_file.url}}" alt="{{photo.name}}"/>
-                                        <figcaption>{{photo.name}}</figcaption>
+                                        <img src="{{ photo.photo_file.url }}"
+                                             alt="{{ photo.name }}"/>
+                                        <figcaption>{{ photo.name }}</figcaption>
                                     </figure>
-                            {% endfor %}
+                                {% endfor %}
+                            </div>
                         </div>
                     </div>
-                </div>
-          {% endfor %}
-        </ul>
+                {% endfor %}
+            </ul>
+        </div>
     </div>
-</div>
+
+    <script src="{% static "vendor/jquery-3.2.1.js" %}"></script>
+    <script src="{% static "vendor/leaflet/leaflet-src.js" %}"></script>
+    <script src="{% static "home.js" %}"></script>
+
 {% endblock %}
