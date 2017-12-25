@@ -1,0 +1,10 @@
+<div>
+    <h1>Create new Location</h1>
+    <form method="post" class="post-form">
+        {% csrf_token %}
+        <ul>
+            {{ form.as_ul }}
+        </ul>
+        <button type="submit" class="save btn btn-default">Add</button>
+    </form>
+</div>

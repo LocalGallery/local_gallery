@@ -1,18 +1,18 @@
 {% extends "archive_manager/base.html" %}
-{% block title %}{{location.name}}'s Archive Gallery{% endblock %}
+
+{% block title %}{{ location.name }}'s Archive Gallery{% endblock %}
+
 {% block content %}
-hello archive manager
     <h4><b>{{ location.name }}</b></h4>
 
-{% for photo in archive_photos %}
-    <div class="column">
-        <figure>
-            <img src="{{photo.photo_file.url}}" alt="{{photo.name}}"/>
-            <figcaption>{{photo.name}}</figcaption>
-        </figure>
-      </div>
-
-{% endfor %}
+    {% for photo in archive_photos %}
+        <div class="column">
+            <figure>
+                <img src="{{ photo.photo_file.url }}" alt="{{ photo.name }}"/>
+                <figcaption>{{ photo.name }}</figcaption>
+            </figure>
+        </div>
+    {% endfor %}
 
 
 {% endblock %}

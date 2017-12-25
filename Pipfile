@@ -13,6 +13,8 @@ pytz = "*"
 pillow = "*"
 djangorestframework = "*"
 django-extra-fields = "*"
+ipython = "*"
+django-extensions = "*"
 
 
 [dev-packages]
