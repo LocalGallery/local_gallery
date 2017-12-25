@@ -1,71 +1,21 @@
-from django.http import HttpResponseRedirect, HttpResponse, JsonResponse
-from django.shortcuts import render, get_object_or_404, render_to_response, redirect
+from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-from django.views.decorators.csrf import csrf_exempt
 from django.contrib.gis.geos import Point
 from django.utils import html
 from django.utils.html import linebreaks
 
 from rest_framework import generics
-from rest_framework.renderers import JSONRenderer
-from rest_framework.parsers import JSONParser
 
 from .serializers import LocationSerializer
-from .models import Location, Photo
+from .models import Location
 from .forms import PostPhoto, LocationForm
-from . import serializers
 
 
 def home(request):
     locations = Location.objects.all()
     return render(request, 'archive_manager/index.html',
                   {'locations': locations})
-
-
-@csrf_exempt
-def location_list(request):
-    """
-    List all code locations, or create a new location.
-    """
-    if request.method == 'GET':
-        locations = Location.objects.all()
-        serializer = LocationSerializer(locations, many=True)
-        return JsonResponse(serializer.data, safe=False)
-
-    elif request.method == 'POST':
-        data = JSONParser().parse(request)
-        serializer = LocationSerializer(data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data, status=201)
-        return JsonResponse(serializer.errors, status=400)
-
-
-@csrf_exempt
-def location_detail(request, pk):
-    """
-    Retrieve, update or delete a location.
-    """
-    try:
-        location = Location.objects.get(pk=pk)
-    except Location.DoesNotExist:
-        return HttpResponse(status=404)
-
-    if request.method == 'GET':
-        serializer = LocationSerializer(location)
-        return JsonResponse(serializer.data)
-
-    elif request.method == 'PUT':
-        data = JSONParser().parse(request)
-        serializer = LocationSerializer(location, data=data)
-        if serializer.is_valid():
-            serializer.save()
-            return JsonResponse(serializer.data)
-        return JsonResponse(serializer.errors, status=400)
-
-    elif request.method == 'DELETE':
-        location.delete()
-        return HttpResponse(status=204)
 
 
 def post_new(request):
@@ -82,9 +32,8 @@ def post_new(request):
             post.save()
             return HttpResponseRedirect(
                 reverse('archive_gallery', args=[post.location.id]))
-        else:
-            return render(request, 'archive_manager/post_edit.html',
-                          {'form': form})
+        return render(request, 'archive_manager/post_edit.html',
+                      {'form': form})
 
 
 def archive_gallery(request, id):
@@ -105,8 +54,8 @@ def create_location(request):
         form = LocationForm(request.POST)
         if form.is_valid():
             # TODO: check if is in Israel
-            p = Point([form.cleaned_data['lng'], form.cleaned_data['lat']])
-            form.instance.point = p
+            point = Point([form.cleaned_data['lng'], form.cleaned_data['lat']])
+            form.instance.point = point
             location = form.save()
             if request.is_ajax():
                 return JsonResponse({
@@ -126,9 +75,9 @@ def create_location(request):
 
 class LocationList(generics.ListCreateAPIView):
     queryset = Location.objects.all()
-    serializer_class = serializers.LocationSerializer
+    serializer_class = LocationSerializer
 
 
 class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Location.objects.all()
-    serializer_class = serializers.LocationSerializer
+    serializer_class = LocationSerializer

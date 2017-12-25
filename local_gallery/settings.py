@@ -18,7 +18,7 @@ BASE_DIR = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
 # Quick-start development settings - unsuitable for production
 # See https://docs.djangoproject.com/en/1.11/howto/deployment/checklist/
 
-# SECURITY WARNING: keep the secret key used in production secret!## 
+# SECURITY WARNING: keep the secret key used in production secret!##
 SECRET_KEY = 'yg4+%yjjmzrd83$qn^&k#=(696&ku5vgyet!5@i9bi%8le*-cx'
 
 # SECURITY WARNING: don't run with debug turned on in production!
@@ -149,8 +149,3 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
-
-try:
-    from .local_settings import *
-except ImportError:
-    pass
