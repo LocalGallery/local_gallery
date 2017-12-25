@@ -1,6 +1,6 @@
-*.pyc
-__pycache__/
+*/*.pyc
+__pycache__/*
 staticroot/
 media/
 venv
-archive_manager/__pycache__
+archive_manager/__pycache__/*
