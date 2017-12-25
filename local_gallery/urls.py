@@ -33,8 +33,8 @@ urlpatterns = [
 
 # REST API urls:
 urlpatterns += [
-    url(r'^locations/$', views.LocationList.as_view()),
-    url(r'^locations/(?P<pk>[0-9]+)/$', views.LocationDetail.as_view()),
+    url(r'^locations/$', views.location_list),
+    url(r'^locations/(?P<pk>[0-9]+)/$', views.location_detail),
     url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
 ]
 
