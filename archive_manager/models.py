@@ -11,8 +11,11 @@ class Location(models.Model):
     def __str__(self):
         return "[{}]: {}".format(self.id, self.name)
 
-    def first_three(self):
-        return self.photos.all()[:3]
+    def first_photo(self):
+        try:
+            return self.photos.all()[0]
+        except IndexError:
+            return None
 
 
 class Photo(models.Model):

@@ -13,29 +13,27 @@
         <link rel="stylesheet" href="{% static 'archive_manager/style.css' %}">
     </head>
     <body>
-      <nav role="navigation">
-          <a id="logo" href="{% url 'home' %}">
-            <img class="img-responsive" src="{% static 'archive_manager/images/logo.jpg' %}">
-          </a>
-        <div id="menuToggle">
-          <input type="checkbox" />
-          <span class="hamburger"></span>
-          <span class="hamburger"></span>
-          <span class="hamburger"></span>
-          <ul id="menu">
-            <a href="{% url 'home' %}"><li>Home</li></a>
-            <a href="#"><li>About</li></a>
-            <a href="{% url 'post_new' %}"><li>Add Photo</li></a>
-            <a href="#"><li>Show on map</li></a>
-            <a href="#"><li>Info</li></a>
-            <a href="#"><li>Contact</li></a>
-          </ul>
-        </div>
-      </nav>
-        <div class="container content">
+      <!--<nav role="navigation">-->
+          <!--<a id="logo" href="{% url 'home' %}">-->
+            <!--<img class="img-responsive" src="{% static 'archive_manager/images/logo.jpg' %}">-->
+          <!--</a>-->
+        <!--<div id="menuToggle">-->
+          <!--<input type="checkbox" />-->
+          <!--<span class="hamburger"></span>-->
+          <!--<span class="hamburger"></span>-->
+          <!--<span class="hamburger"></span>-->
+          <!--<ul id="menu">-->
+            <!--<a href="{% url 'home' %}"><li>Home</li></a>-->
+            <!--<a href="#"><li>About</li></a>-->
+            <!--<a href="{% url 'post_new' %}"><li>Add Photo</li></a>-->
+            <!--<a href="#"><li>Show on map</li></a>-->
+            <!--<a href="#"><li>Info</li></a>-->
+            <!--<a href="#"><li>Contact</li></a>-->
+          <!--</ul>-->
+        <!--</div>-->
+      <!--</nav>-->
             {% block content %}
             {% endblock %}
-        </div>
     <script src="{% static "vendor/jquery-3.2.1.js" %}"></script>
     <script src="{% static "csrf.js" %}"></script>
 

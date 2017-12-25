@@ -6,12 +6,28 @@ $(function () {
 
     const formUrl = $('.locations').data('create-url');
 
-    const map = L.map('map').setView([32, 35], 8);
+//    const map = L.map('map').setView([32, 35], 8);
+    const streets = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
+        maxZoom: 16
+    });
 
     const layer = L.tileLayer('https://services.arcgisonline.com/ArcGIS/rest/services/World_Imagery/MapServer/tile/{z}/{y}/{x}', {
         maxZoom: 16
     });
 
+    const layer2 = L.tileLayer('https://israelhiking.osm.org.il/Hebrew/Tiles/{z}/{x}/{y}.png', {
+        maxZoom: 16
+    });
+
+
+    var baseMaps = {
+        "streets": streets,
+        "satelite": layer,
+        "simun shvilim": layer2,
+    };
+
+    const map = L.map('map', {center: [32, 35], zoom: 8,})
+    L.control.layers(baseMaps).addTo(map);
     layer.addTo(map);
 
     map.on('click', e => {

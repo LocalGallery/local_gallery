@@ -28,11 +28,6 @@ li a {
     color: green;
 }
 
-.content {
-    padding-left: 100px;
-    padding-top: 50px;
-}
-
 /*-------------------------------*/
 /*             Sidebar           */
 /*-------------------------------*/
@@ -132,7 +127,7 @@ li a {
 
 .blocks {
     position: relative;
-    margin: 3%;
+    margin-top: 6px;
 }
 
 .blocks ul {
@@ -172,7 +167,55 @@ figcaption {
     text-align: center;
 }
 
+
+/*-------------------------------*/
+/*     index page flexbox        */
+/*-------------------------------*/
+
+.flex-container {
+    width: 100%;
+    height: 100%;
+    display: -ms-flexbox;
+    display: -webkit-flex;
+    display: flex;
+    -webkit-flex-direction: row;
+    -ms-flex-direction: row;
+    flex-direction: row;
+    -webkit-flex-wrap: wrap;
+    -ms-flex-wrap: wrap;
+    flex-wrap: wrap;
+    -webkit-justify-content: flex-start;
+    -ms-flex-pack: start;
+    justify-content: flex-start;
+    -webkit-align-content: stretch;
+    -ms-flex-line-pack: stretch;
+    align-content: stretch;
+    -webkit-align-items: stretch;
+    -ms-flex-align: stretch;
+    align-items: stretch;
+    }
+
 #map {
-    width: 600px;
-    height: 500px;
-}
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 16 1 auto;
+    -ms-flex: 16 1 auto;
+    flex: 16 1 auto;
+    -webkit-align-self: stretch;
+    -ms-flex-item-align: stretch;
+    align-self: stretch;
+    }
+
+#sidebar {
+    margin: 10px;
+    -webkit-order: 0;
+    -ms-flex-order: 0;
+    order: 0;
+    -webkit-flex: 1 1 auto;
+    -ms-flex: 1 1 auto;
+    flex: 1 1 auto;
+    -webkit-align-self: auto;
+    -ms-flex-item-align: auto;
+    align-self: auto;
+    }

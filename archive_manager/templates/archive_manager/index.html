@@ -3,45 +3,42 @@
 {% load static %}
 {% block content %}
     <link rel="stylesheet" href="{% static "vendor/leaflet/leaflet.css" %}"/>
-
-    <div class="row locations" data-create-url="{% url "create_location" %}">
-        <div class="blocks">
-            <div id="map"></div>
+        <h3><b>Add a location</b></h3> Click the map to add location
+<div class="flex-container">
+    <div id="map"></div>
+    <div id="sidebar">
+    <div  class="locations blocks" data-create-url="{% url "create_location" %}">
             <ul>
                 {% for location in locations %}
-                    <div class="col-md-12 location"
+                    <div class="location"
                          data-lat="{{ location.point.coords.1|floatformat:5 }}"
                          data-lng="{{ location.point.coords.0|floatformat:5 }}">
-                        <div class="preview col-md-10">
-                            <li><a href="/archive-gallery/{{ location.id }}/">
-                                <h3>{{ location.name }}</h3></a></li>
-                            <li><strong>Name:</strong><span
-                                    class="name">{{ location.name }}</span>
-                            </li>
-                            <li>
-                                <strong>Information:</strong><span
-                                    class="info">{{ location.information|linebreaks }}</span>
-                            </li>
-                            <div class="row">
-                                <figure class="thumbnail col-sm-3">
-                                    <a href="{% url 'post_new' %}"><img
-                                            src="{% static 'archive_manager/images/add.png' %}"></a>
-                                    <figcaption>Add a photo</figcaption>
-                                </figure>
-                                {% for photo in location.first_three %}
-                                    <figure class="thumbnail col-sm-3">
-                                        <img src="{{ photo.photo_file.url }}"
-                                             alt="{{ photo.name }}"/>
-                                        <figcaption>{{ photo.name }}</figcaption>
+                        <div class="row">
+                                <div>
+                                    <figure class="thumbnail">
+                                        {% if location.first_photo != None %}
+                                            <img src="{{ location.first_photo.photo_file.url }}" alt="{{ photo.name }}"/>
+                                        {% else %}
+                                            <img src="{% static 'archive_manager/images/logo.jpg' %}" alt="{{ photo.name }}"/>
+                                        {% endif %}
                                     </figure>
-                                {% endfor %}
-                            </div>
+                                </div>
+                                <div>
+                                    <ul>
+                                        <li><a href="/archive-gallery/{{ location.id }}/">
+                                        <h3>{{ location.name }}</h3></a></li>
+                                        <li><strong>Name:</strong><span class="name">{{ location.name }}</span></li>
+                                        <li><strong>Information:</strong><span class="info">{{ location.information|linebreaks }}</span></li>
+                                    </ul>
+                                </div>
                         </div>
                     </div>
                 {% endfor %}
             </ul>
-        </div>
+
     </div>
+    </div>
+</div>
 
 {% endblock %}
 
