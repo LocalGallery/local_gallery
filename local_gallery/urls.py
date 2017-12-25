@@ -23,22 +23,25 @@ from rest_framework.urlpatterns import format_suffix_patterns
 
 from archive_manager import views
 
-
 urlpatterns = [
     path('', views.home, name="home"),
     path('admin/', admin.site.urls),
     path('post/new/', views.post_new, name='post_new'),
-    path('archive-gallery/<int:id>/', views.archive_gallery, name="archive_gallery")
+    path('archive-gallery/<int:id>/', views.archive_gallery,
+         name="archive_gallery"),
+    path('add-location/', views.create_location, name="create_location"),
 ]
 
 # REST API urls:
 urlpatterns += [
     url(r'^locations/$', views.location_list),
     url(r'^locations/(?P<pk>[0-9]+)/$', views.location_detail),
-    url(r'^api-auth/', include('rest_framework.urls', namespace='rest_framework'))
+    url(r'^api-auth/',
+        include('rest_framework.urls', namespace='rest_framework'))
 ]
 
 if settings.DEBUG:
-    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+    urlpatterns += static(settings.MEDIA_URL,
+                          document_root=settings.MEDIA_ROOT)
 
 urlpatterns = format_suffix_patterns(urlpatterns)
