@@ -1,18 +1,34 @@
 {% extends "archive_manager/base.html" %}
+{% load staticfiles %}
 
 {% block title %}{{ location.name }}'s Archive Gallery{% endblock %}
 
 {% block content %}
+    <link rel="stylesheet" href="{% static "vendor/dropzone.css" %}">
     <h4><b>{{ location.name }}</b></h4>
 
-    {% for photo in archive_photos %}
-        <div class="column">
-            <figure>
-                <img src="{{ photo.photo_file.url }}" alt="{{ photo.name }}"/>
-                <figcaption>{{ photo.name }}</figcaption>
-            </figure>
-        </div>
-    {% endfor %}
+    <div class="row">
+
+        {% for photo in archive_photos %}
+            <div class="column">
+                <figure>
+                    <img src="{{ photo.photo_file.url }}"
+                         alt="{{ photo.name }}"/>
+                    <figcaption>{{ photo.name }}</figcaption>
+                </figure>
+            </div>
+        {% endfor %}
+    </div>
+
+    <form action="{% url "post_new" %}" class="dropzone" id="dz">
+        {% csrf_token %}
+        <input type="hidden" name="location" value="{{ location.id }}"/>
+    </form>
 
 
+{% endblock %}
+
+{% block scripts %}
+    <script src="{% static "vendor/dropzone.js" %}"></script>
+    <script src="{% static "archive_gallery.js" %}"></script>
 {% endblock %}

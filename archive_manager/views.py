@@ -1,21 +1,22 @@
-from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.conf import settings
 from django.contrib.gis.geos import Point
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import html
 from django.utils.html import linebreaks
-
 from rest_framework import generics
 
-from .serializers import LocationSerializer
-from .models import Location
 from .forms import PostPhoto, LocationForm
+from .models import Location
+from .serializers import LocationSerializer
 
 
 def home(request):
     locations = Location.objects.all()
-    return render(request, 'archive_manager/index.html',
-                  {'locations': locations})
+    return render(request, 'archive_manager/index.html', {
+        'center': settings.MAP_CENTER,
+        'locations': locations,
+    })
 
 
 def post_new(request):
@@ -25,7 +26,12 @@ def post_new(request):
         form = PostPhoto(request.POST, request.FILES)
         if form.is_valid():
             post = form.save()
+            if request.is_ajax():
+                return JsonResponse({})
             return redirect('archive_gallery', post.location.id)
+        if request.is_ajax():
+            return JsonResponse({'errors': form.errors.get_json_data()},
+                                status=400)
     else:
         form = PostPhoto()
 
