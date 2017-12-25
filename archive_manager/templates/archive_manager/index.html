@@ -4,7 +4,7 @@
 {% block content %}
     <link rel="stylesheet" href="{% static "vendor/leaflet/leaflet.css" %}"/>
 
-    <div class="row">
+    <div class="row locations" data-create-url="{% url "create_location" %}">
         <div class="blocks">
             <div id="map"></div>
             <ul>
@@ -15,9 +15,12 @@
                         <div class="preview col-md-10">
                             <li><a href="/archive-gallery/{{ location.id }}/">
                                 <h3>{{ location.name }}</h3></a></li>
-                            <li><strong>Name:</strong><span class="name">{{ location.name }}</span></li>
+                            <li><strong>Name:</strong><span
+                                    class="name">{{ location.name }}</span>
+                            </li>
                             <li>
-                                <strong>Information:</strong>{{ location.information }}
+                                <strong>Information:</strong><span
+                                    class="info">{{ location.information|linebreaks }}</span>
                             </li>
                             <div class="row">
                                 <figure class="thumbnail col-sm-3">
@@ -40,8 +43,9 @@
         </div>
     </div>
 
-    <script src="{% static "vendor/jquery-3.2.1.js" %}"></script>
+{% endblock %}
+
+{% block scripts %}
     <script src="{% static "vendor/leaflet/leaflet-src.js" %}"></script>
     <script src="{% static "home.js" %}"></script>
-
 {% endblock %}

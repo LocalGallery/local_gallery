@@ -1,15 +1,15 @@
-from django.http import HttpResponseRedirect
-from django.shortcuts import render, get_object_or_404, render_to_response, \
-    redirect
+from django.contrib.gis.geos import Point
+from django.http import HttpResponseRedirect, JsonResponse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.urls import reverse
-
+from django.utils import html
+from django.utils.html import linebreaks
 from rest_framework import generics
 
-from .models import Location, Photo
 from archive_manager import serializers
-
-# Create your views here.
+from archive_manager.forms import LocationForm
 from .forms import PostPhoto
+from .models import Location
 
 
 def home(request):
@@ -45,6 +45,32 @@ def archive_gallery(request, id):
     return render(request, "archive_manager/archive_gallery.html", {
         'location': location,
         'archive_photos': location.photos.all(),
+    })
+
+
+def create_location(request):
+    import time
+    time.sleep(1)
+    if request.method == 'POST':
+        form = LocationForm(request.POST)
+        if form.is_valid():
+            # TODO: check if is in Israel
+            p = Point([form.cleaned_data['lng'], form.cleaned_data['lat']])
+            form.instance.point = p
+            location = form.save()
+            if request.is_ajax():
+                return JsonResponse({
+                    'name': html.escape(location.name),
+                    'info': linebreaks(location.information),
+                    'lat': format(location.point.coords[1], ".5f"),
+                    'lng': format(location.point.coords[0], ".5f"),
+                })
+            return redirect("home")
+    else:
+        form = LocationForm()
+
+    return render(request, 'archive_manager/location_form.html', {
+        'form': form,
     })
 
 
