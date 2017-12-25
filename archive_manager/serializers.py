@@ -3,8 +3,8 @@ from drf_extra_fields.geo_fields import PointField
 from rest_framework import serializers
 
 
-class LocationSerializer(serializers.Serializer):
-    name = serializers.CharField(max_length=100)
+class LocationSerializer(serializers.ModelSerializer):
+    '''name = serializers.CharField(max_length=100)
     point = PointField()
     information = serializers.CharField(max_length=15)
 
@@ -16,4 +16,7 @@ class LocationSerializer(serializers.Serializer):
         instance.point = validated_data.get('point', instance.point)
         instance.information = validated_data.get('information', instance.information)
         instance.save()
-        return instance
+        return instance'''
+    class Meta:
+        model = Location
+        fields = ('name', 'point', 'information')
