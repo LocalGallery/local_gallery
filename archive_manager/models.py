@@ -19,7 +19,7 @@ class Location(models.Model):
 
 
 class Photo(models.Model):
-    name = models.TextField(max_length=100, default='photo desc')
+    name = models.TextField(max_length=100)
     photo_file = models.ImageField('Local Photo',
                                    upload_to='photos/local_photos')
     location = models.ForeignKey('Location', on_delete=models.CASCADE,

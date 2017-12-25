@@ -19,21 +19,19 @@ def home(request):
 
 
 def post_new(request):
-    if request.method == 'GET':
-        form = PostPhoto(request.GET, request.FILES)
-        return render(request, 'archive_manager/post_edit.html',
-                      {'form': form})
-    elif request.method == 'POST':
+    if request.method == 'POST':
+        # if request.user.is_authenticated:
+        #     post.author = request.user
         form = PostPhoto(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save(commit=False)
-            # if request.user.is_authenticated:
-            #     post.author = request.user
-            post.save()
-            return HttpResponseRedirect(
-                reverse('archive_gallery', args=[post.location.id]))
-        return render(request, 'archive_manager/post_edit.html',
-                      {'form': form})
+            post = form.save()
+            return redirect('archive_gallery', post.location.id)
+    else:
+        form = PostPhoto()
+
+    return render(request, 'archive_manager/post_edit.html', {
+        'form': form,
+    })
 
 
 def archive_gallery(request, id):
@@ -48,8 +46,6 @@ def archive_gallery(request, id):
 
 
 def create_location(request):
-    import time
-    time.sleep(1)
     if request.method == 'POST':
         form = LocationForm(request.POST)
         if form.is_valid():
