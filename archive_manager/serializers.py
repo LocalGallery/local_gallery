@@ -10,13 +10,17 @@ class LocationSerializer(serializers.ModelSerializer):
 
     def create(self, validated_data):
         return Location.objects.create(**validated_data)
-    
+
     def update(self, instance, validated_data):
         instance.name = validated_data.get('name', instance.name)
         instance.point = validated_data.get('point', instance.point)
         instance.information = validated_data.get('information', instance.information)
         instance.save()
+<<<<<<< HEAD
         return instance'''
     class Meta:
         model = Location
         fields = ('name', 'point', 'information')
+=======
+        return instance
+>>>>>>> 49787d3aa519be697c969f50247f16e232846ecc

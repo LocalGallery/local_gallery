@@ -2,7 +2,11 @@ from django.http import HttpResponseRedirect
 from django.shortcuts import render, get_object_or_404, render_to_response, redirect
 from django.urls import reverse
 
+from rest_framework import generics
+
+
 from .models import Location, Photo
+from archive_manager import serializers
 
 # Create your views here.
 from .forms import PostPhoto
@@ -38,3 +42,13 @@ def archive_gallery(request, id):
         'location': location,
         'archive_photos': location.photos.all(),
         })
+
+
+class LocationList(generics.ListCreateAPIView):
+    queryset = Location.objects.all()
+    serializer_class = serializers.LocationSerializer
+
+
+class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Location.objects.all()
+    serializer_class = serializers.LocationSerializer
