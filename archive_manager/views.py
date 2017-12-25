@@ -1,39 +1,43 @@
-from django.http import HttpResponseRedirect, JsonResponse
-from django.shortcuts import render, get_object_or_404, redirect
-from django.urls import reverse
+from django.conf import settings
 from django.contrib.gis.geos import Point
+from django.http import JsonResponse
+from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import html
 from django.utils.html import linebreaks
-
 from rest_framework import generics
 
-from .serializers import LocationSerializer
-from .models import Location
 from .forms import PostPhoto, LocationForm
+from .models import Location
+from .serializers import LocationSerializer
 
 
 def home(request):
     locations = Location.objects.all()
-    return render(request, 'archive_manager/index.html',
-                  {'locations': locations})
+    return render(request, 'archive_manager/index.html', {
+        'center': settings.MAP_CENTER,
+        'locations': locations,
+    })
 
 
 def post_new(request):
-    if request.method == 'GET':
-        form = PostPhoto(request.GET, request.FILES)
-        return render(request, 'archive_manager/post_edit.html',
-                      {'form': form})
-    elif request.method == 'POST':
+    if request.method == 'POST':
+        # if request.user.is_authenticated:
+        #     post.author = request.user
         form = PostPhoto(request.POST, request.FILES)
         if form.is_valid():
-            post = form.save(commit=False)
-            # if request.user.is_authenticated:
-            #     post.author = request.user
-            post.save()
-            return HttpResponseRedirect(
-                reverse('archive_gallery', args=[post.location.id]))
-        return render(request, 'archive_manager/post_edit.html',
-                      {'form': form})
+            post = form.save()
+            if request.is_ajax():
+                return JsonResponse({})
+            return redirect('archive_gallery', post.location.id)
+        if request.is_ajax():
+            return JsonResponse({'errors': form.errors.get_json_data()},
+                                status=400)
+    else:
+        form = PostPhoto()
+
+    return render(request, 'archive_manager/post_edit.html', {
+        'form': form,
+    })
 
 
 def archive_gallery(request, id):
@@ -48,8 +52,6 @@ def archive_gallery(request, id):
 
 
 def create_location(request):
-    import time
-    time.sleep(1)
     if request.method == 'POST':
         form = LocationForm(request.POST)
         if form.is_valid():

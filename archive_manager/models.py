@@ -19,13 +19,14 @@ class Location(models.Model):
 
 
 class Photo(models.Model):
-    name = models.TextField(max_length=100, default='photo desc')
+    created_at = models.DateTimeField(auto_now_add=True)
+
+    name = models.TextField(max_length=300, null=True, blank=True)
     photo_file = models.ImageField('Local Photo',
                                    upload_to='photos/local_photos')
     location = models.ForeignKey('Location', on_delete=models.CASCADE,
                                  related_name="photos")
-    date_taken = models.DateField()
-    date_added = models.DateField(blank=True, null=True)
+    date_taken = models.DateField(null=True, blank=True)
     long_desc = forms.CharField(
         widget=forms.Textarea(attrs={'cols': 10, 'rows': 20}))
     tags_array = ArrayField(models.CharField(max_length=20), default=list)

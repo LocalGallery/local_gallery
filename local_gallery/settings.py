@@ -149,3 +149,5 @@ REST_FRAMEWORK = {
         'rest_framework.permissions.DjangoModelPermissionsOrAnonReadOnly'
     ]
 }
+
+MAP_CENTER = (32.475, 34.975)

@@ -5,7 +5,8 @@
     <link rel="stylesheet" href="{% static "vendor/leaflet/leaflet.css" %}"/>
         <h3><b>Add a location</b></h3> Click the map to add location
 <div class="flex-container">
-    <div id="map"></div>
+    <div id="map"
+         data-center-lat="{{ center.0 }}" data-center-lng="{{ center.1 }}"></div>
     <div id="sidebar">
     <div  class="locations blocks" data-create-url="{% url "create_location" %}">
             <ul>
