@@ -1,3 +1,25 @@
+/*-------------------------------*/
+/*             navbar            */
+/*-------------------------------*/
+nav{
+    margin: 0;
+    overflow:hidden;
+    text-align: center;
+    background-color:#add3ad;
+    border-color: #c0392b;
+}
+
+@import url(//fonts.googleapis.com/earlyaccess/opensanshebrewcondensed.css);
+* {
+  font-family: 'Open Sans Hebrew Condensed', sans-serif;
+}
+
+h3 {
+    color:#246623;
+    letter-spacing: 3px;
+    font-size: 3em;
+}
+
 .page-header {
     margin-top: 70px;
     margin-left: 70px;
