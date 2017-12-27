@@ -3,10 +3,13 @@ $(function () {
     let renderLocation = function (name, info, lat, lng) {
         return `<h3>${name}</h3><div>${info}</div><br/>${lat}:${lng}`;
     };
+    const center = L.latLng(
+        parseFloat($('#map').data('center-lat')),
+        parseFloat($('#map').data('center-lng'))
+    );
 
     const formUrl = $('.locations').data('create-url');
 
-//    const map = L.map('map').setView([32, 35], 8);
     const streets = L.tileLayer('https://maps.wikimedia.org/osm-intl/{z}/{x}/{y}.png', {
         maxZoom: 16
     });
@@ -26,7 +29,8 @@ $(function () {
         "simun shvilim": layer2,
     };
 
-    const map = L.map('map', {center: [32, 35], zoom: 8,})
+    const map = L.map('map', {center: center, zoom: 15});
+
     L.control.layers(baseMaps).addTo(map);
     layer.addTo(map);
 
