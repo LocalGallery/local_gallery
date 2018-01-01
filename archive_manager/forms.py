@@ -28,6 +28,9 @@ class LocationForm(forms.ModelForm):
 
     class Meta:
         model = Location
+        widgets = {
+            'information': forms.Textarea(attrs={'cols': 25, 'rows': 5}),
+        }
         fields = (
             'name',
             'information',
