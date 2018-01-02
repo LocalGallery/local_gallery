@@ -5,10 +5,11 @@ from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import html
 from django.utils.html import linebreaks
 from rest_framework import generics
+from rest_framework import response
 
 from .forms import PostPhoto, LocationForm
-from .models import Location
-from .serializers import LocationSerializer
+from .models import Location, Photo
+from .serializers import LocationSerializer, LocationPhotoSerializer, PhotoSerializer
 
 
 def home(request):
@@ -83,3 +84,26 @@ class LocationList(generics.ListCreateAPIView):
 class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Location.objects.all()
     serializer_class = LocationSerializer
+
+
+class LocationPhotoList(generics.ListCreateAPIView):
+    queryset = Photo.objects.all()
+    serializer_class = PhotoSerializer
+
+    def get(self, request, *args, **kwargs):
+        key = self.kwargs.get('pk', None)
+        if key:
+            queryset = Photo.objects.filter(location_id=key)
+            serializer = LocationPhotoSerializer(queryset, many=True)
+            return response.Response(serializer.data)
+
+
+class PhotoList(generics.ListCreateAPIView):
+    queryset = Photo.objects.all()
+    print([p.location for p in queryset])
+    serializer_class = PhotoSerializer
+
+
+class PhotoDetail(generics.RetrieveUpdateDestroyAPIView):
+    queryset = Photo.objects.all()
+    serializer_class = PhotoSerializer

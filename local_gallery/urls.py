@@ -35,7 +35,10 @@ urlpatterns = [
 # REST API urls:
 urlpatterns += [
     url(r'^locations/$', views.LocationList.as_view()),
-    url(r'^locations/(?P<pk>[0-9]+)/$', views.LocationDetail.as_view())
+    url(r'^locations/(?P<pk>[0-9]+)/$', views.LocationDetail.as_view()),
+    url(r'^locations/(?P<pk>[0-9]+)/photos/$', views.LocationPhotoList.as_view()),
+    url(r'^photos/$', views.PhotoList.as_view()),
+    url(r'^photos/(?P<pk>[0-9]+)/$', views.PhotoDetail.as_view()),
 ]
 
 if settings.DEBUG:
