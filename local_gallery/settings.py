@@ -38,6 +38,7 @@ INSTALLED_APPS = [
     'django.contrib.gis',
     'archive_manager.apps.ArchiveManagerConfig',
     'rest_framework',
+    'rest_framework_gis',
     'django_extensions',
 ]
 

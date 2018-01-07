@@ -55,6 +55,13 @@
             ],
             "version": "==3.7.7"
         },
+        "djangorestframework-gis": {
+            "hashes": [
+                "sha256:3b8b6a2297410d2a738a3548e8b030bd2e0210090435affa4bfdee9b3de65f20",
+                "sha256:80f5e024079f23421c7a34123eb0f50e8a324a61fc1366ed0173aa1a89d766a7"
+            ],
+            "version": "==0.12"
+        },
         "ipython": {
             "hashes": [
                 "sha256:fcc6d46f08c3c4de7b15ae1c426e15be1b7932bcda9d83ce1a4304e8c1129df3",
