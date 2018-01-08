@@ -100,7 +100,6 @@ class LocationPhotoList(generics.ListCreateAPIView):
 
 class PhotoList(generics.ListCreateAPIView):
     queryset = Photo.objects.all()
-    print([p.location for p in queryset])
     serializer_class = PhotoSerializer
 
 
