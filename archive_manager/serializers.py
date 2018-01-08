@@ -8,10 +8,14 @@ class LocationSerializer(serializers.ModelSerializer):
 
     class Meta:
         model = Location
-        fields = ('id', 'name', 'point', 'information')
+        fields = ('id', 'project', 'name', 'point', 'information')
+        read_only_fields = ('project',)
 
 
 class LocationPhotoSerializer(serializers.ModelSerializer):
+    project_id = serializers.PrimaryKeyRelatedField(source='location.project.id',
+                                                    many=False,
+                                                    read_only=True)
     location_id = serializers.PrimaryKeyRelatedField(source='location.id',
                                                      many=False,
                                                      read_only=True)
@@ -28,6 +32,7 @@ class LocationPhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = ('id',
+                  'project_id',
                   'location_id',
                   'location_name',
                   'name',
@@ -38,6 +43,9 @@ class LocationPhotoSerializer(serializers.ModelSerializer):
 
 
 class PhotoSerializer(serializers.ModelSerializer):
+    project_id = serializers.PrimaryKeyRelatedField(source='location.project.id',
+                                                    many=False,
+                                                    read_only=True)
     location_id = serializers.PrimaryKeyRelatedField(source='location.id',
                                                      many=False,
                                                      read_only=True)
@@ -54,6 +62,7 @@ class PhotoSerializer(serializers.ModelSerializer):
     class Meta:
         model = Photo
         fields = ('id',
+                  'project_id',
                   'location_id',
                   'location_name',
                   'name',

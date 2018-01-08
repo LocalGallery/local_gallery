@@ -34,11 +34,11 @@ urlpatterns = [
 
 # REST API urls:
 urlpatterns += [
-    url(r'^api/locations/$', views.LocationList.as_view()),
-    url(r'^api/locations/(?P<pk>[0-9]+)/$', views.LocationDetail.as_view()),
-    url(r'^api/locations/(?P<pk>[0-9]+)/photos/$', views.LocationPhotoList.as_view()),
-    url(r'^api/photos/$', views.PhotoList.as_view()),
-    url(r'^api/photos/(?P<pk>[0-9]+)/$', views.PhotoDetail.as_view()),
+    path('api/<int:pj_id>/locations/', views.LocationList.as_view()),
+    path('api/<int:pj_id>/locations/<int:pk>/', views.LocationDetail.as_view()),
+    path('api/<int:pj_id>/locations/<int:pk>/photos/', views.LocationPhotoList.as_view()),
+    path('api/<int:pj_id>/photos/', views.PhotoList.as_view()),
+    path('api/<int:pj_id>/photos/<int:pk>/', views.PhotoDetail.as_view()),
 ]
 
 if settings.DEBUG:
