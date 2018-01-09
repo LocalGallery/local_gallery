@@ -2,19 +2,22 @@ from django import forms
 from django.contrib.gis.db import models
 from django.contrib.postgres.fields import ArrayField
 
+
 class Project(models.Model):
     name = models.CharField(max_length=100, unique=True)
+    slug = models.SlugField(max_length=40)
     logo_file = models.ImageField('Logo',
-                                   upload_to='photos/logos')
+                                  upload_to='photos/logos')
     center = models.PointField()
     zoom_level = models.IntegerField()
 
     def __str__(self):
         return "[{}]: {}".format(self.id, self.name)
 
+
 class Location(models.Model):
     project = models.ForeignKey('Project', on_delete=models.CASCADE,
-                                 related_name="locations")
+                                related_name="locations")
     name = models.CharField(max_length=100)
     point = models.PointField()
     information = models.TextField(blank=True)
@@ -32,7 +35,7 @@ class Location(models.Model):
 class Photo(models.Model):
     created_at = models.DateTimeField(auto_now_add=True)
 
-    name = models.TextField(max_length=300, null=True, blank=True)
+    name = models.CharField(max_length=300, null=True, blank=True)
     photo_file = models.ImageField('Local Photo',
                                    upload_to='photos/local_photos')
     location = models.ForeignKey('Location', on_delete=models.CASCADE,
