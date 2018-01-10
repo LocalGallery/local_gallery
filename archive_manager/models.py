@@ -22,8 +22,11 @@ class Location(models.Model):
     point = models.PointField()
     information = models.TextField(blank=True)
 
+    class Meta:
+        unique_together = (('project', 'name'))
+
     def __str__(self):
-        return "[{}]: {}".format(self.id, self.name)
+        return "[{}]: {} - {}".format(self.id, self.project.name, self.name)
 
     def first_photo(self):
         try:
