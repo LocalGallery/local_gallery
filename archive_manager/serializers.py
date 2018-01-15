@@ -25,7 +25,7 @@ class LocationPhotoSerializer(serializers.ModelSerializer):
     name = serializers.CharField(max_length=100, default='photo desc')
     photo_file = serializers.ImageField()
     date_taken = serializers.DateField()
-    created_at = serializers.DateTimeField()
+    created_at = serializers.DateTimeField(read_only=True)
     long_desc = serializers.CharField()
     # TODO: tags_array
 
@@ -55,7 +55,7 @@ class PhotoSerializer(serializers.ModelSerializer):
     name = serializers.CharField(max_length=100, default='photo desc')
     photo_file = serializers.ImageField()
     date_taken = serializers.DateField()
-    created_at = serializers.DateTimeField()
+    created_at = serializers.DateTimeField(read_only=True)
     long_desc = serializers.CharField()
     # TODO: tags_array
 

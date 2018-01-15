@@ -12,7 +12,7 @@ from rest_framework import generics
 from rest_framework import response
 
 from .forms import PostPhoto, LocationForm
-from .models import Location, Photo
+from .models import Location, Photo, Project
 from .serializers import LocationSerializer, LocationPhotoSerializer, PhotoSerializer
 
 
@@ -89,6 +89,10 @@ class LocationList(generics.ListCreateAPIView):
         queryset = self.queryset.filter(project=project)
         return queryset
 
+    def perform_create(self, serializer):
+        project = Project.objects.all().filter(id=self.kwargs.get('pj_id'))[0]
+        serializer.save(project=project)
+
 
 class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Location.objects.all()
@@ -117,8 +121,12 @@ class LocationPhotoList(generics.ListCreateAPIView):
             queryset = Photo.objects.none()
         return queryset
 
+    def perform_create(self, serializer):
+        location = Location.objects.all().filter(id=self.kwargs.get('pk'))[0]
+        serializer.save(location=location)
 
-class PhotoList(generics.ListCreateAPIView):
+
+class PhotoList(generics.ListAPIView):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
 

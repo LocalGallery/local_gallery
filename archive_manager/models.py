@@ -36,16 +36,18 @@ class Location(models.Model):
 
 
 class Photo(models.Model):
-    created_at = models.DateTimeField(auto_now_add=True)
+    def get_path(instance, filename):
+        return 'photos/local_photos/' + str(instance.location.project.id) + '/' +\
+                    str(instance.location.id) + '/' + filename
 
+    created_at = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=300, null=True, blank=True)
-    photo_file = models.ImageField('Local Photo',
-                                   upload_to='photos/local_photos')
     location = models.ForeignKey('Location', on_delete=models.CASCADE,
                                  related_name="photos")
+    photo_file = models.ImageField('Local Photo',
+                                   upload_to=get_path)
     date_taken = models.DateField(null=True, blank=True)
-    long_desc = forms.CharField(
-        widget=forms.Textarea(attrs={'cols': 10, 'rows': 20}))
+    long_desc = models.TextField()
     tags_array = ArrayField(models.CharField(max_length=20), default=list)
 
     def __str__(self):
