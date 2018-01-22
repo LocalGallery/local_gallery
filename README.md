@@ -47,9 +47,11 @@
              where python
 
 
-4. Migrate:
+4. Reset, migrate and populate database:
 
+        python manage.py reset_db
         python manage.py migrate
+        python manage.py populate_db
 
 5. Create an admin account:
 
