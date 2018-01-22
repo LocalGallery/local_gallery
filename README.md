@@ -15,14 +15,12 @@
         sudo -u postgres createuser -s local_gallery
         sudo -u postgres psql -c "alter user local_gallery with encrypted password 'local_gallery';"
         sudo -u postgres createdb local_gallery -O local_gallery
-        sudo -u postgres psql local_gallery -c "create extension postgis;"
 
 * Windows (supply password for postgres user):
 
         createuser --username=postgres -s local_gallery
         psql --username=postgres -c "alter user local_gallery with encrypted password 'local_gallery';"
         createdb --username=postgres local_gallery -O local_gallery
-        psql --username=postgres --dbname=local_gallery -c "create extension postgis;"
 
 ## Setup
 
