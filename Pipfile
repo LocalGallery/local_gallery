@@ -15,6 +15,7 @@ djangorestframework = "*"
 ipython = "*"
 django-extensions = "*"
 djangorestframework-gis = "*"
+silly = "*"
 
 
 [dev-packages]

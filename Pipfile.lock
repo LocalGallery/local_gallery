@@ -1,7 +1,7 @@
 {
     "_meta": {
         "hash": {
-            "sha256": "5e3f78a14150af30ae208b28ea731aace4562b25b73cfb1a3e716c6a57f78dad"
+            "sha256": "8249d48d14f6462c3e987a1f91b2a6849b229bc7fc8c9f483da93ea538be803a"
         },
         "host-environment-markers": {
             "implementation_name": "cpython",
@@ -29,10 +29,10 @@
     "default": {
         "decorator": {
             "hashes": [
-                "sha256:95a26b17806e284452bfd97fa20aa1e8cb4ee23542bda4dbac5e4562aa1642cd",
-                "sha256:7cb64d38cb8002971710c8899fbdfb859a23a364b7c99dab19d1f719c2ba16b5"
+                "sha256:94d1d8905f5010d74bbbd86c30471255661a14187c45f8d7f3e5aa8540fdb2e5",
+                "sha256:7d46dd9f3ea1cf5f06ee0e4e1277ae618cf48dfb10ada7c8427cd46c42702a0e"
             ],
-            "version": "==4.1.2"
+            "version": "==4.2.1"
         },
         "django": {
             "hashes": [
@@ -43,10 +43,10 @@
         },
         "django-extensions": {
             "hashes": [
-                "sha256:7776b6c5f3807997c1459e96f4eed4af2b571fd6bebf61462242fa957166df30",
-                "sha256:9f1c314cfd4b974f03c5589f46f33051aa1d6b5a38cfb7f8824f59e9337768ae"
+                "sha256:f642e79990f365e82a7c906c91b0dabea533cdcdf2df7059a732e1e8648f2fa3",
+                "sha256:6fb35133b61e7295d43c1f7added952e5dfe689ae65662d2fb5fe7ea1a397eba"
             ],
-            "version": "==1.9.8"
+            "version": "==1.9.9"
         },
         "djangorestframework": {
             "hashes": [
@@ -61,6 +61,13 @@
                 "sha256:80f5e024079f23421c7a34123eb0f50e8a324a61fc1366ed0173aa1a89d766a7"
             ],
             "version": "==0.12"
+        },
+        "inflect": {
+            "hashes": [
+                "sha256:0e2358f4f46a54cca3d77b983fa3708b02dc83acd8d28466a67e88b72e5c1b34",
+                "sha256:2014c8dcb2114ebae2941ba3f0fbd98a02c846792a7b72f2da31eb9aa431a818"
+            ],
+            "version": "==0.2.5"
         },
         "ipython": {
             "hashes": [
@@ -222,6 +229,12 @@
                 "sha256:fae4cffc040921b8a2d60c6cf0b5d662c1190fe54d718271db4eb17d44a185b7"
             ],
             "version": "==2017.3"
+        },
+        "silly": {
+            "hashes": [
+                "sha256:7bbe76a765ee0abb70f3921feec0881cafc1b4c9ae66b6d2bb08e5ebebbf1577"
+            ],
+            "version": "==1.1.0"
         },
         "simplegeneric": {
             "hashes": [
