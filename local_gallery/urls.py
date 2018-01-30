@@ -30,6 +30,9 @@ urlpatterns = [
     path('archive-gallery/<int:id>/', views.archive_gallery,
          name="archive_gallery"),
     path('add-location/', views.create_location, name="create_location"),
+
+    path('<slug:slug>/image/new/', views.PhotoCreateView.as_view(), name='post_new_image'),
+    path('<slug:slug>/<int:pk>/', views.LocationDetailView.as_view(), name='location'),
 ]
 
 # REST API urls:

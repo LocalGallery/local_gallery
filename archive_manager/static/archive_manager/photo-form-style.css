@@ -1,0 +1,72 @@
+.post-form .form-group {
+    padding: 20px;
+    padding-left: 200px;
+}
+
+.post-form .fld_name {
+    background: rgba(184,233,134,0.5);
+}
+
+.post-form .fld_long_desc {
+    background: rgba(184,233,134,0.5);
+}
+
+.post-form .fld_photo_file {
+    background: rgba(184,233,134,0.5);
+}
+
+.num-copy-6 {
+	  height: 120px;
+	  width: 120px;
+}
+
+.form-group label {
+    margin-left: 100px;
+}
+
+.form-group::before {
+    margin-left: -100px;
+	  height: 71px;
+	  width: 55px;
+	  color: #000000;
+	  font-family: "Open Sans Hebrew";
+	  font-size: 64px;
+	  font-weight: bold;
+	  line-height: 87px;
+	  text-align: center;
+}
+
+.fld_name::before {
+    content: "1"
+}
+
+.fld_date_taken::before {
+    content: "2"
+}
+
+.fld_long_desc::before {
+    content: "3"
+}
+
+.fld_location::before {
+    content: "4"
+}
+
+.fld_photo_file::before {
+    content: "5"
+}
+
+.oval {
+	  box-sizing: border-box;
+	  height: 122px;
+	  width: 122px;
+	  border: 1px solid #979797;
+	  background-color: #FFFFFF;
+}
+
+.line {
+	  box-sizing: border-box;
+	  height: 1122px;
+	  width: 3px;
+	  border: 3px solid #979797;
+}

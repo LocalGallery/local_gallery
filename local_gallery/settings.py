@@ -39,6 +39,7 @@ INSTALLED_APPS = [
     'archive_manager.apps.ArchiveManagerConfig',
     'rest_framework',
     'rest_framework_gis',
+    'bootstrap4',
     'django_extensions',
 ]
 
@@ -152,3 +153,9 @@ REST_FRAMEWORK = {
 }
 
 MAP_CENTER = (32.475, 34.975)
+
+BOOTSTRAP4 = {
+    'field_renderers': {
+        'default': 'local_gallery.renderers.BetterFieldRenerer',
+    }
+}

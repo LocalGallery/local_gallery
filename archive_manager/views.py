@@ -2,12 +2,15 @@ from functools import reduce
 import operator
 
 from django.conf import settings
+from django.contrib.auth.mixins import LoginRequiredMixin
 from django.contrib.gis.geos import Point
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import html
 from django.utils.html import linebreaks
+from django.views.generic import CreateView, DetailView
+
 from rest_framework import generics
 from rest_framework import response
 
@@ -44,16 +47,32 @@ def post_new(request):
         'form': form,
     })
 
+class PhotoCreateView(LoginRequiredMixin, CreateView):
+    model = Photo
+    form_class = PostPhoto
 
-def archive_gallery(request, id):
-    location = get_object_or_404(Location, id=id)
-    # photos =
-    # all_photos = Photo.objects.filter(location=location)
-    # archive_photos = [photo for photo in all_photos if photo.photo_location.id == id]
-    return render(request, "archive_manager/archive_gallery.html", {
-        'location': location,
-        'archive_photos': location.photos.all(),
-    })
+    def dispatch(self, request, *args, **kwargs):
+        self.project = get_object_or_404(Project, slug=kwargs['slug'])
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['location'].queryset = self.project.locations.all()
+        return form
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.save()
+        return redirect(form.instance.location)
+
+
+class LocationDetailView(DetailView):
+    model = Location
+
+    def dispatch(self, request, *args, **kwargs):
+        self.object = self.get_object()
+        self.project = get_object_or_404(Project, slug=kwargs['slug'], pk=self.object.project.pk)
+        return super().dispatch(request, *args, **kwargs)
 
 
 def create_location(request):

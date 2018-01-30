@@ -1,6 +1,7 @@
 from django import forms
 from django.contrib.gis.db import models
 from django.contrib.postgres.fields import ArrayField
+from django.urls import reverse
 
 
 class Project(models.Model):
@@ -27,6 +28,9 @@ class Location(models.Model):
 
     def __str__(self):
         return "[{}]: {} - {}".format(self.id, self.project.name, self.name)
+
+    def get_absolute_url(self):
+        return reverse('location', args=(self.project.slug, self.pk))
 
     def first_photo(self):
         try:
