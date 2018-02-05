@@ -27,8 +27,6 @@ urlpatterns = [
     path('', views.home, name="home"),
     path('admin/', admin.site.urls),
     path('post/new/', views.post_new, name='post_new'),
-    path('archive-gallery/<int:id>/', views.archive_gallery,
-         name="archive_gallery"),
     path('add-location/', views.create_location, name="create_location"),
 
     path('<slug:slug>/image/new/', views.PhotoCreateView.as_view(), name='post_new_image'),

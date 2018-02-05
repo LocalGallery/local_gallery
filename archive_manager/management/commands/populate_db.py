@@ -22,7 +22,7 @@ class Command(BaseCommand):
 
 
     def get_photo_object(self, url):
-        img = NamedTemporaryFile(delete=True)
+        img = NamedTemporaryFile()
         img.write(urlopen(url).read())
         img.flush()
         return img
