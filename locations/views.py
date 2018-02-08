@@ -4,18 +4,19 @@ from django.http import JsonResponse, Http404
 from django.shortcuts import render, redirect, get_object_or_404
 from django.utils import html
 from django.utils.html import linebreaks
-from django.views.generic import CreateView, DetailView
+from django.views.generic import CreateView, DetailView, UpdateView
 
-from locations.forms import PostPhoto, LocationForm
+from locations.forms import CreatePhotoForm, LocationForm
 from locations.models import Photo, Location
 from projects.models import Project
+from . import forms
 
 
 def post_new(request):
     if request.method == 'POST':
         # if request.user.is_authenticated:
         #     post.author = request.user
-        form = PostPhoto(request.POST, request.FILES)
+        form = CreatePhotoForm(request.POST, request.FILES)
         if form.is_valid():
             post = form.save()
             if request.is_ajax():
@@ -25,30 +26,11 @@ def post_new(request):
             return JsonResponse({'errors': form.errors.get_json_data()},
                                 status=400)
     else:
-        form = PostPhoto()
+        form = CreatePhotoForm()
 
     return render(request, 'general/post_edit.html', {
         'form': form,
     })
-
-
-class PhotoCreateView(LoginRequiredMixin, CreateView):
-    model = Photo
-    form_class = PostPhoto
-
-    def dispatch(self, request, *args, **kwargs):
-        self.project = get_object_or_404(Project, slug=kwargs['slug'])
-        return super().dispatch(request, *args, **kwargs)
-
-    def get_form(self, form_class=None):
-        form = super().get_form(form_class)
-        form.fields['location'].queryset = self.project.locations.all()
-        return form
-
-    def form_valid(self, form):
-        form.instance.author = self.request.user
-        form.save()
-        return redirect(form.instance.location)
 
 
 class LocationDetailView(DetailView):
@@ -61,7 +43,7 @@ class LocationDetailView(DetailView):
         return super().dispatch(request, *args, **kwargs)
 
 
-class PhotoDetailView(DetailView):
+class PhotoMixin:
     model = Photo
 
     def dispatch(self, request, *args, **kwargs):
@@ -73,6 +55,44 @@ class PhotoDetailView(DetailView):
             raise Http404()
         self.project = self.location.project
         return super().dispatch(request, *args, **kwargs)
+
+
+class PhotoDetailView(PhotoMixin, DetailView):
+    pass
+
+
+class PhotoUpdateView(LoginRequiredMixin, PhotoMixin, UpdateView):
+    form_class = forms.UpdatePhotoForm
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['location'].queryset = self.project.locations.all()
+        return form
+
+
+class PhotoCreateView(LoginRequiredMixin, CreateView):
+    model = Photo
+    form_class = CreatePhotoForm
+
+    def dispatch(self, request, *args, **kwargs):
+        self.project = get_object_or_404(Project, slug=kwargs['slug'])
+        return super().dispatch(request, *args, **kwargs)
+
+    def get_form(self, form_class=None):
+        form = super().get_form(form_class)
+        form.fields['location'].queryset = self.project.locations.all()
+        return form
+
+    def form_invalid(self, form):
+        assert False, form.errors
+
+    def form_valid(self, form):
+        form.instance.author = self.request.user
+        form.save()
+        if self.request.is_ajax():
+            return JsonResponse({'status': "OK"})
+
+        return redirect(form.instance.location)
 
 
 def create_location(request):

@@ -1,11 +1,19 @@
 {% extends "base.html" %}
-{% load staticfiles lg %}
+{% load staticfiles lg i18n %}
 
 {% block title %}{{ object }} ({{ object.location }}{% endblock %}
 
 {% block content %}
     <link rel="stylesheet" href="{% static "vendor/dropzone.css" %}">
     <h1>
+        {% if user.is_authenticated %}
+            <span class="float-right">
+                <a class="btn btn-primary"
+                   href="{{ object.get_edit_url }}">
+                    {% trans "Edit" %}
+                </a>
+            </span>
+        {% endif %}
         {{ object }} ({{ object.location }})
     </h1>
 

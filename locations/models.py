@@ -1,6 +1,7 @@
 from django.contrib.gis.db import models
 from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.urls import reverse
+from django.utils.translation import ugettext_lazy as _
 
 from projects.models import Project
 
@@ -47,13 +48,17 @@ class Photo(models.Model):
         ordering = ('location', 'date_taken', 'name')
 
     def __str__(self):
-        return self.name
+        return self.name or str(_("Untitled Photo"))
 
-    def get_absolute_url(self):
-        return reverse('photo', args=(
+    def get_absolute_url(self, name="photo"):
+        return reverse(name, args=(
             self.location.project.slug,
             self.location.pk,
             self.pk,
         ))
+
+
+    def get_edit_url(self):
+        return self.get_absolute_url("photo_update")
 
 

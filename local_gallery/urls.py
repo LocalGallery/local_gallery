@@ -32,13 +32,16 @@ urlpatterns = [
 
     path('<slug:slug>/', projects.views.ProjectDetailView.as_view(),
          name='project_detail'),
-    path('<slug:slug>/image/new/', locations.views.PhotoCreateView.as_view(),
+    path('<slug:slug>/create-photo/', locations.views.PhotoCreateView.as_view(),
          name='post_new_image'),
     path('<slug:slug>/<int:pk>/', locations.views.LocationDetailView.as_view(),
          name='location'),
     path('<slug:slug>/<int:location_pk>/<int:pk>/',
          locations.views.PhotoDetailView.as_view(),
          name='photo'),
+    path('<slug:slug>/<int:location_pk>/<int:pk>/edit/',
+         locations.views.PhotoUpdateView.as_view(),
+         name='photo_update'),
 
     path('accounts/', include('django.contrib.auth.urls')),
 

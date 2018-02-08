@@ -5,7 +5,7 @@ from django import forms
 from locations.models import Photo, Location
 
 
-class PostPhoto(forms.ModelForm):
+class CreatePhotoForm(forms.ModelForm):
     class Meta:
         def last_years():
             first_year = datetime.datetime.now().year - 200
@@ -21,6 +21,17 @@ class PostPhoto(forms.ModelForm):
                                                  attrs={'class': 'form-'}),
         }
         fields = ('name', 'photo_file', 'date_taken', 'location')
+
+
+class UpdatePhotoForm(forms.ModelForm):
+    class Meta:
+        model = Photo
+        fields = (
+            'name',
+            'long_desc',
+            'date_taken',
+            'location',
+        )
 
 
 class LocationForm(forms.ModelForm):
