@@ -19,7 +19,6 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 
-import locations.api_views
 import locations.views
 import projects.views
 from locations import api_views
