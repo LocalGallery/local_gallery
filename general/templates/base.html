@@ -1,11 +1,9 @@
-{% load staticfiles %}
+{% load staticfiles i18n %}
 <html>
 <head>
     <title>{% block title %}{% endblock %}</title>
-    <link rel="stylesheet" type="text/css"
-          href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
-          crossorigin="anonymous">
+    <link rel="stylesheet"
+          href="{% static "vendor/bootstrap/css/bootstrap-rtl.css" %}"/>
     <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext'
           rel='stylesheet' type='text/css'>
     <link rel="apple-touch-icon" sizes="180x180"
@@ -24,80 +22,120 @@
 </head>
 <body>
 <div class="container-fluid">
+    <div class="page">
+        <nav class="navbar navbar-expand-lg navbar-light bg-light">
+            <a class="navbar-brand" href="{% url "home" %}">
+                <img src="{% static "images/small_title.png" %}"
+                     alt="{% trans "Local Gallery" %}"
+                     width="194" height="41">
 
-    <nav class="navbar navbar-fixed-top" role="navigation">
-        <ul class="nav navbar-nav pull-sm-left">
-            <li class="nav-item">
-                {% if project %}
-                    <img src="{{ project.logo_file.url }}">
-                {% endif %}
-            </li>
-        </ul>
-
-        <ul class="nav navbar-nav center-nav">
-
-            <li class="nav-item navbar-center">
-                <a class="nav navbar-nav " href="{% url 'home' %}">
-                    <img src="{% static 'images/logo_1.png' %}">
-                </a></li>
-        </ul>
-        <ul class="nav navbar-nav pull-xs-right">
-            <li class="nav-item navbar-right">
-                <a data-toggle="collapse" data-target="#topmenu" href="#"
-                   id="navbarDropdownMenuLink">
-                    <div id="menuToggle">
-                        <span class="hamburger"></span>
-                        <span class="hamburger"></span>
-                        <span class="hamburger"></span>
-                        <span class="hamburger"></span>
-
-                    </div>
-
+            </a>
+            {% if project %}
+                <a class="navbar-brand" href="#">
+                    {{ project }}
+                    {#                      <img src="{{ project.logo_file.url }}">    #}
                 </a>
 
-            </li>
-            <!--<ul class="nav navbar-nav navbar-right">
-                  <a href="#" class="dropdown-toggle">
-                    <div id="menuToggle" data-toggle="dropdown" aria-expanded="true" aria-haspopup="true">
-                        <span class="hamburger"></span>
-                        <span class="hamburger"></span>
-                        <span class="hamburger"></span>
-                        <span class="hamburger"></span>
-                        <ul class="dropdown-menu">
-                            <a href="{% url 'home' %}"><li>Home</li></a>
-                            <a href="#"><li>About</li></a>
-                            <a href="{% url 'post_new' %}"><li>Add Photo</li></a>
-                            <a href="#"><li>Show on map</li></a>
-                            <a href="#"><li>Info</li></a>
-                            <a href="#"><li>Contact</li></a>
-                        </ul>
-                    </div>
-                    </a>-->
+            {% endif %}
 
-        </ul>
-    </nav>
-    <div id="topmenu" class="collapse">
-        <ul class="list-unstyled">
-            <li><a href="{% url 'home' %}">Home</a></li>
-            <li><a href="#">About</a></li>
-            <li><a href="{% url 'post_new' %}">Add Photo</a></li>
-            <li><a href="#">Show on map</a></li>
-            <li><a href="#">Info</a></li>
-            <li><a href="#">Contact</a></li>
-        </ul>
+            {#        <button class="navbar-toggler" type="button" data-toggle="collapse"#}
+            {#                data-target="#navbarNav" aria-controls="navbarNav"#}
+            {#                aria-expanded="false" aria-label="Toggle navigation">#}
+            {#            <span class="navbar-toggler-icon"></span>#}
+            {#        </button>#}
+            {#        <div class="collapse navbar-collapse" id="navbarNav">#}
+            {#            <ul class="navbar-nav">#}
+            {#                <li class="nav-item active">#}
+            {#                    <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>#}
+            {#                </li>#}
+            {#                <li class="nav-item">#}
+            {#                    <a class="nav-link" href="#">Features</a>#}
+            {#                </li>#}
+            {#                <li class="nav-item">#}
+            {#                    <a class="nav-link" href="#">Pricing</a>#}
+            {#                </li>#}
+            {#                <li class="nav-item">#}
+            {#                    <a class="nav-link disabled" href="#">Disabled</a>#}
+            {#                </li>#}
+            {#            </ul>#}
+            {#        </div>#}
+        </nav>
+
+        {#    <nav class="navbar navbar-fixed-top" role="navigation">#}
+        {#        <ul class="nav navbar-nav pull-sm-left">#}
+        {#            <li class="nav-item">#}
+        {#                {% if project %}#}
+        {#                    <img src="{{ project.logo_file.url }}">#}
+        {#                {% endif %}#}
+        {#            </li>#}
+        {#        </ul>#}
+        {##}
+        {#        <ul class="nav navbar-nav center-nav">#}
+        {##}
+        {#            <li class="nav-item navbar-center">#}
+        {#                <a class="nav navbar-nav " href="{% url 'home' %}">#}
+        {#                    <img src="{% static 'images/logo_1.png' %}">#}
+        {#                </a></li>#}
+        {#        </ul>#}
+        {#        <ul class="nav navbar-nav pull-xs-right">#}
+        {#            <li class="nav-item navbar-right">#}
+        {#                <a data-toggle="collapse" data-target="#topmenu" href="#"#}
+        {#                   id="navbarDropdownMenuLink">#}
+        {#                    <div id="menuToggle">#}
+        {#                        <span class="hamburger"></span>#}
+        {#                        <span class="hamburger"></span>#}
+        {#                        <span class="hamburger"></span>#}
+        {#                        <span class="hamburger"></span>#}
+        {##}
+        {#                    </div>#}
+        {##}
+        {#                </a>#}
+        {##}
+        {#            </li>#}
+        {#            <!--<ul class="nav navbar-nav navbar-right">#}
+        {#                  <a href="#" class="dropdown-toggle">#}
+        {#                    <div id="menuToggle" data-toggle="dropdown" aria-expanded="true" aria-haspopup="true">#}
+        {#                        <span class="hamburger"></span>#}
+        {#                        <span class="hamburger"></span>#}
+        {#                        <span class="hamburger"></span>#}
+        {#                        <span class="hamburger"></span>#}
+        {#                        <ul class="dropdown-menu">#}
+        {#                            <a href="{% url 'home' %}"><li>Home</li></a>#}
+        {#                            <a href="#"><li>About</li></a>#}
+        {#                            <a href="{% url 'post_new' %}"><li>Add Photo</li></a>#}
+        {#                            <a href="#"><li>Show on map</li></a>#}
+        {#                            <a href="#"><li>Info</li></a>#}
+        {#                            <a href="#"><li>Contact</li></a>#}
+        {#                        </ul>#}
+        {#                    </div>#}
+        {#                    </a>-->#}
+        {##}
+        {#        </ul>#}
+        {#    </nav>#}
+        {#    <div id="topmenu" class="collapse">#}
+        {#        <ul class="list-unstyled">#}
+        {#            <li><a href="{% url 'home' %}">Home</a></li>#}
+        {#            <li><a href="#">About</a></li>#}
+        {#            <li><a href="{% url 'post_new' %}">Add Photo</a></li>#}
+        {#            <li><a href="#">Show on map</a></li>#}
+        {#            <li><a href="#">Info</a></li>#}
+        {#            <li><a href="#">Contact</a></li>#}
+        {#        </ul>#}
+        {#    </div>#}
+        <div class="content">
+            {% block content %}
+            {% endblock %}
+        </div>
+
     </div>
-    {% block content %}
+
+    <script src="{% static 'vendor/jquery-3.2.1.js' %}"></script>
+    <script src="{% static 'js/csrf.js' %}"></script>
+
+    <script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.bundle.min.js"></script>
+
+    {% block scripts %}
+
     {% endblock %}
-
-</div>
-
-<script src="{% static 'vendor/jquery-3.2.1.js' %}"></script>
-<script src="{% static 'js/csrf.js' %}"></script>
-
-<script src="//maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.3/js/bootstrap.bundle.min.js"></script>
-
-{% block scripts %}
-
-{% endblock %}
 </body>
 </html>

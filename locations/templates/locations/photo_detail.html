@@ -1,0 +1,23 @@
+{% extends "base.html" %}
+{% load staticfiles lg %}
+
+{% block title %}{{ object }} ({{ object.location }}{% endblock %}
+
+{% block content %}
+    <link rel="stylesheet" href="{% static "vendor/dropzone.css" %}">
+    <h1>
+        {{ object }} ({{ object.location }})
+    </h1>
+
+    <figure>
+        <img src="{{ photo.photo_file.url }}"
+             alt="{{ photo.name }}"/>
+        <figcaption>{{ photo|u }}</figcaption>
+    </figure>
+    </div>
+
+
+{% endblock %}
+
+{% block scripts %}
+{% endblock %}

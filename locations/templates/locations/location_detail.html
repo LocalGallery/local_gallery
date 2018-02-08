@@ -1,31 +1,37 @@
 {% extends "base.html" %}
-{% load staticfiles %}
+{% load staticfiles lg %}
 
 {% block title %}{{ location.name }}'s Archive Gallery{% endblock %}
 
 {% block content %}
-    <link rel="stylesheet" href="{% static "vendor/dropzone.css" %}">
-    <h4><b>{{ location.project.name }} - {{ location.name }}</b></h4>
+    <div class="container-fluid">
 
-    <div class="row">
+        <link rel="stylesheet" href="{% static "vendor/dropzone.css" %}">
+        <h4><b>{{ location.project.name }} - {{ location.name }}</b></h4>
 
-        {% for photo in location.photos.all %}
-            <div class="column">
-                <figure>
-                    <img src="{{ photo.photo_file.url }}"
-                         alt="{{ photo.name }}"/>
-                    <figcaption>{{ photo.name }}</figcaption>
-                </figure>
-            </div>
-        {% endfor %}
+        <div class="card-columns container">
+            {% for photo in location.photos.all %}
+                <div class="card">
+                    <img class="card-img-top"
+                         src="{{ photo.photo_file.url }}"
+                         alt="{{ photo }}">
+                    <div class="card-body">
+                        <p class="card-text">
+                            {{ photo|u }}
+                        </p>
+                    </div>
+                </div>
+            {% endfor %}
+        </div>
+
+
+        <form action="{% url "post_new_image" location.project.slug %}"
+              class="dropzone" id="dz">
+            {% csrf_token %}
+            <input type="hidden" name="location" value="{{ location.id }}"/>
+        </form>
+
     </div>
-
-    <form action="{% url "post_new_image" location.project.slug %}"
-          class="dropzone" id="dz">
-        {% csrf_token %}
-        <input type="hidden" name="location" value="{{ location.id }}"/>
-    </form>
-
 
 {% endblock %}
 

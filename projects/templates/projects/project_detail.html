@@ -5,51 +5,36 @@
 {% block content %}
     <link rel="stylesheet" href="{% static "vendor/dropzone.css" %}">
     <link rel="stylesheet" href="{% static "vendor/leaflet/leaflet.css" %}"/>
-    <div class="flex-container">
-        <div id="map" data-bounds="{{ object.bounds }}"></div>
-        <div id="sidebar">
-            <div class="locations blocks"
-                 data-create-url="{% url "create_location" %}">
-                <ul>
-                    {% for location in object.locations.all %}
-                        <div class="location"
-                             data-lat="{{ location.point.coords.1|floatformat:5 }}"
-                             data-lng="{{ location.point.coords.0|floatformat:5 }}">
+    <div class="flex23">
+        <div class="flex-item">
+            <div id="map" data-bounds="{{ object.bounds }}"></div>
+        </div>
+        <div class="flex-item">
+            <div class="card-columns container">
+                {#                 data-create-url="{% url "create_location" %}">#}
+                {% for location in object.locations.all %}
+                    <div class="location"
+                         data-lat="{{ location.point.coords.1|floatformat:5 }}"
+                         data-lng="{{ location.point.coords.0|floatformat:5 }}">
 
-                            <div class="row">
-                                <div>
-                                    <figure class="thumbnail">
-                                        {% if location.first_photo != None %}
-                                            <img src="{{ location.first_photo.photo_file.url }}"
-                                                 alt="{{ photo.name }}"/>
-                                        {% else %}
-                                            <img src="{% static 'images/logo.jpg' %}"
-                                                 alt="{{ photo.name }}"/>
-                                        {% endif %}
-                                    </figure>
-                                </div>
-                                <div>
-                                    <ul>
-                                        <li>
-                                            <h3>
-                                                <a href="{{ location.get_absolute_url }}"
-                                                   class="name">
-                                                    {{ location.name }}
-                                                </a>
-                                                <small class="muted">
-                                                    ({{ location.photos.count }} {% trans "Photos" %})
-                                                </small>
-                                            </h3>
-                                        </li>
-                                        <li><span class="info">
-                                                {{ location.information|linebreaks }}
-                                            </span></li>
-                                    </ul>
-                                </div>
+                        <div class="card" >
+                            <img class="card-img-top"
+                                 src="{{ location.first_photo_url }}"
+                                 alt="Card image cap">
+                            <div class="card-body">
+                                <p class="card-text">
+                                    <a href="{{ location.get_absolute_url }}"
+                                       class="name">
+                                        {{ location.name }}
+                                    </a>
+                                    <small class="muted">
+                                        ({{ location.photos.count }} {% trans "Photos" %})
+                                    </small>
+                                </p>
                             </div>
                         </div>
-                    {% endfor %}
-                </ul>
+                    </div>
+                {% endfor %}
             </div>
         </div>
     </div>

@@ -1,16 +1,3 @@
-1.  Cleanup
-1.1 Apps
-- archive_gallery
-- general
-    - base.html
-    - vendor static files
-- projects
-    - Project
-    - Role
-- locations
-    - Location
-    - Photo
-
 1.2 Move to class based views
 
 2. Add Roles

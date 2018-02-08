@@ -1,4 +1,5 @@
 from django.contrib.gis.db import models
+from django.contrib.staticfiles.templatetags.staticfiles import static
 from django.urls import reverse
 
 from projects.models import Project
@@ -16,16 +17,17 @@ class Location(models.Model):
         unique_together = (('project', 'name'))
 
     def __str__(self):
-        return "[{}]: {} - {}".format(self.id, self.project.name, self.name)
+        return self.name
 
     def get_absolute_url(self):
         return reverse('location', args=(self.project.slug, self.pk))
 
-    def first_photo(self):
+    def first_photo_url(self):
         try:
-            return self.photos.all()[0]
+            photo =  self.photos.all()[0]
+            return photo.photo_file.url
         except IndexError:
-            return None
+            return static("images/logo.jpg")
 
 def get_photo_path(instance, filename):
     loc = instance.location
@@ -46,4 +48,12 @@ class Photo(models.Model):
 
     def __str__(self):
         return self.name
+
+    def get_absolute_url(self):
+        return reverse('photo', args=(
+            self.location.project.slug,
+            self.location.pk,
+            self.pk,
+        ))
+
 

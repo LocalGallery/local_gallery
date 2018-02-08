@@ -3,6 +3,7 @@ import json
 import random
 from pathlib import Path
 
+import faker
 import silly
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -14,10 +15,9 @@ from django.db import transaction, IntegrityError
 from locations.models import Location, Photo
 from projects.models import Project
 
-SAMPLE_PROJECTS_FILE = Path(
-    settings.BASE_DIR) / "general" / "sample_projects.geojson"
-
-IMG_PATH = Path(settings.BASE_DIR) / "general" / "dummy_data"
+GENERAL_PATH = Path(settings.BASE_DIR) / "general"
+SAMPLE_PROJECTS_FILE = GENERAL_PATH / "sample_projects.geojson"
+IMG_PATH = GENERAL_PATH / "dummy_data"
 
 
 def load_projects(data):
@@ -32,10 +32,11 @@ def load_projects(data):
 class Command(BaseCommand):
     help = "Populate database tables."
 
-    num_of_locations_per_project = 5
-    num_of_photos_per_location = 10
+    LOCATIONS_PER_PROJECT = 20
+    PHOTOS_PER_LOCATION = 16
 
     def handle(self, *args, **options):
+        fake = faker.Faker("he_IL")
         images = glob.glob(f"{IMG_PATH}/image*.jpeg")
 
         try:
@@ -57,10 +58,10 @@ class Command(BaseCommand):
                     project.save()
 
                     for location_id in range(
-                            self.num_of_locations_per_project):
+                            self.LOCATIONS_PER_PROJECT):
                         location = Location()
                         location.project = project
-                        location.name = silly.a_thing()
+                        location.name = fake.street_name()  + " " + fake.street_name()
                         x0, y0, x1, y1 = project.geom.extent
                         x = random.uniform(x0, x1)
                         y = random.uniform(y0, y1)
@@ -70,12 +71,13 @@ class Command(BaseCommand):
 
                         for photo_id in range(
                                 random.randint(0,
-                                               self.num_of_photos_per_location)):
+                                               self.PHOTOS_PER_LOCATION)):
                             photo = Photo()
-                            photo.name = silly.a_thing()
+                            photo.name = fake.street_name()
                             photo.location = location
                             photo.date_taken = silly.datetime().date()
-                            photo.lond_desc = silly.paragraph()
+                            photo.lond_desc = fake.paragraphs(nb=3,
+                                                              ext_word_list=None)
                             with open(random.choice(images), "rb") as f:
                                 photo.photo_file.save("random.jpg", File(f))
                             photo.save()

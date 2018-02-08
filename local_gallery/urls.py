@@ -19,6 +19,7 @@ from django.contrib import admin
 from django.urls import path
 from rest_framework.urlpatterns import format_suffix_patterns
 
+import locations.api_views
 import locations.views
 import projects.views
 
@@ -35,18 +36,22 @@ urlpatterns = [
          name='post_new_image'),
     path('<slug:slug>/<int:pk>/', locations.views.LocationDetailView.as_view(),
          name='location'),
+    path('<slug:slug>/<int:location_pk>/<int:pk>/',
+         locations.views.PhotoDetailView.as_view(),
+         name='photo'),
 ]
 
 # REST API urls:
 urlpatterns += [
-    path('api/<int:pj_id>/locations/', locations.views.LocationList.as_view()),
+    path('api/<int:pj_id>/locations/',
+         locations.api_views.LocationList.as_view()),
     path('api/<int:pj_id>/locations/<int:pk>/',
-         locations.views.LocationDetail.as_view()),
+         locations.api_views.LocationDetail.as_view()),
     path('api/<int:pj_id>/locations/<int:pk>/photos/',
-         locations.views.LocationPhotoList.as_view()),
-    path('api/<int:pj_id>/photos/', locations.views.PhotoList.as_view()),
+         locations.api_views.LocationPhotoList.as_view()),
+    path('api/<int:pj_id>/photos/', locations.api_views.PhotoList.as_view()),
     path('api/<int:pj_id>/photos/<int:pk>/',
-         locations.views.PhotoDetail.as_view()),
+         locations.api_views.PhotoDetail.as_view()),
 ]
 
 if settings.DEBUG:
