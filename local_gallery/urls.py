@@ -19,8 +19,10 @@ from django.contrib import admin
 from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 
+import locations.api_views
 import locations.views
 import projects.views
+from locations import api_views
 
 urlpatterns = [
     path('', projects.views.ProjectListView.as_view(), name="home"),
@@ -46,14 +48,14 @@ urlpatterns = [
 # REST API urls:
 urlpatterns += [
     path('api/<int:pj_id>/locations/',
-         locations.api_views.LocationList.as_view()),
+         api_views.LocationList.as_view()),
     path('api/<int:pj_id>/locations/<int:pk>/',
-         locations.api_views.LocationDetail.as_view()),
+         api_views.LocationDetail.as_view()),
     path('api/<int:pj_id>/locations/<int:pk>/photos/',
-         locations.api_views.LocationPhotoList.as_view()),
+         api_views.LocationPhotoList.as_view()),
     path('api/<int:pj_id>/photos/', locations.api_views.PhotoList.as_view()),
     path('api/<int:pj_id>/photos/<int:pk>/',
-         locations.api_views.PhotoDetail.as_view()),
+         api_views.PhotoDetail.as_view()),
 ]
 
 if settings.DEBUG:
