@@ -14,33 +14,39 @@ Including another URLconf
     2. Add a URL to urlpatterns:  url(r'^blog/', include('blog.urls'))
 """
 from django.conf import settings
-from django.conf.urls import url
 from django.conf.urls.static import static
 from django.contrib import admin
 from django.urls import path
-
 from rest_framework.urlpatterns import format_suffix_patterns
 
-from archive_manager import views
+import locations.views
+import projects.views
 
 urlpatterns = [
-    path('', views.ProjectListView.as_view(), name="home"),
+    path('', projects.views.ProjectListView.as_view(), name="home"),
     path('admin/', admin.site.urls),
-    path('post/new/', views.post_new, name='post_new'),
-    path('add-location/', views.create_location, name="create_location"),
+    path('post/new/', locations.views.post_new, name='post_new'),
+    path('add-location/', locations.views.create_location,
+         name="create_location"),
 
-    path('<slug:slug>/', views.ProjectDetailView.as_view(), name='project_detail'),
-    path('<slug:slug>/image/new/', views.PhotoCreateView.as_view(), name='post_new_image'),
-    path('<slug:slug>/<int:pk>/', views.LocationDetailView.as_view(), name='location'),
+    path('<slug:slug>/', projects.views.ProjectDetailView.as_view(),
+         name='project_detail'),
+    path('<slug:slug>/image/new/', locations.views.PhotoCreateView.as_view(),
+         name='post_new_image'),
+    path('<slug:slug>/<int:pk>/', locations.views.LocationDetailView.as_view(),
+         name='location'),
 ]
 
 # REST API urls:
 urlpatterns += [
-    path('api/<int:pj_id>/locations/', views.LocationList.as_view()),
-    path('api/<int:pj_id>/locations/<int:pk>/', views.LocationDetail.as_view()),
-    path('api/<int:pj_id>/locations/<int:pk>/photos/', views.LocationPhotoList.as_view()),
-    path('api/<int:pj_id>/photos/', views.PhotoList.as_view()),
-    path('api/<int:pj_id>/photos/<int:pk>/', views.PhotoDetail.as_view()),
+    path('api/<int:pj_id>/locations/', locations.views.LocationList.as_view()),
+    path('api/<int:pj_id>/locations/<int:pk>/',
+         locations.views.LocationDetail.as_view()),
+    path('api/<int:pj_id>/locations/<int:pk>/photos/',
+         locations.views.LocationPhotoList.as_view()),
+    path('api/<int:pj_id>/photos/', locations.views.PhotoList.as_view()),
+    path('api/<int:pj_id>/photos/<int:pk>/',
+         locations.views.PhotoDetail.as_view()),
 ]
 
 if settings.DEBUG:

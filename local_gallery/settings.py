@@ -36,11 +36,15 @@ INSTALLED_APPS = [
     'django.contrib.messages',
     'django.contrib.staticfiles',
     'django.contrib.gis',
-    'archive_manager.apps.ArchiveManagerConfig',
     'rest_framework',
     'rest_framework_gis',
     'bootstrap4',
     'django_extensions',
+
+    'general',
+    'projects',
+    'locations',
+
 ]
 
 MIDDLEWARE = [

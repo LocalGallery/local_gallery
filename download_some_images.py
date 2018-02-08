@@ -5,7 +5,7 @@ from pathlib import Path
 from urllib.request import urlretrieve
 
 IMG_URL = "https://picsum.photos/{w}/{h}/"
-PATH = Path(__file__).parent / "archive_manager" / "dummy_data"
+PATH = Path(__file__).parent / "general" / "dummy_data"
 os.makedirs(PATH, exist_ok=True)
 
 

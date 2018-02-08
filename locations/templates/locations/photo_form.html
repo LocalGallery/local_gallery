@@ -1,0 +1,27 @@
+{% extends 'base.html' %}
+{% load bootstrap4 %}
+{% load staticfiles %}
+
+{% block head %}
+<link rel="stylesheet" href="{% static 'css/photo-form-style.css' %}">
+{% endblock %}
+
+{% block content %}
+<h1>Photo Info and Upload Form</h1>
+<div class="edit-header">
+    <h1>New Photo</h1>
+</div>
+<div class="container">
+    <div class="row">
+        <div class="col-12">
+            <form method="post" class="form post-form" enctype="multipart/form-data">{% csrf_token %}
+        {% bootstrap_form form %}
+
+        {% buttons %}
+            <button type="submit" class="save btn btn-outline-secondary">Save</button>
+        {% endbuttons %}
+        </form>
+        </div>
+    </div>
+</div>
+{% endblock %}
