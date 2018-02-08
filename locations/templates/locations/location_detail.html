@@ -24,7 +24,6 @@
             {% endfor %}
         </div>
 
-
         <form action="{% url "post_new_image" location.project.slug %}"
               class="dropzone" id="dz">
             {% csrf_token %}
