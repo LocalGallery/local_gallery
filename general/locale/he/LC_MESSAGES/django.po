@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-02-08 13:32+0200\n"
-"PO-Revision-Date: 2018-02-08 13:32+0200\n"
+"POT-Creation-Date: 2018-02-08 15:06+0200\n"
+"PO-Revision-Date: 2018-02-08 15:06+0200\n"
 "Last-Translator: \n"
 "Language-Team: \n"
 "Language: he\n"
@@ -20,3 +20,32 @@ msgstr ""
 
 msgid "Local Gallery"
 msgstr "ארכיון מקומי"
+
+msgid "Logout"
+msgstr "יציאה"
+
+msgid "Login"
+msgstr "כניסה"
+
+msgid ""
+"Your username and password didn't match. Please\n"
+"                try again."
+msgstr ""
+
+msgid ""
+"Your account doesn't have access to this\n"
+"                    page."
+msgstr ""
+
+msgid ""
+"To proceed, please login with an account\n"
+"                        that has access."
+msgstr ""
+
+msgid ""
+"Please login to see this\n"
+"                    page."
+msgstr ""
+
+msgid "Lost password?"
+msgstr ""

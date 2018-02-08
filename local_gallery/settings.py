@@ -163,3 +163,6 @@ BOOTSTRAP4 = {
         'default': 'local_gallery.renderers.BetterFieldRenerer',
     }
 }
+
+LOGIN_REDIRECT_URL = "home"
+LOGOUT_REDIRECT_URL = "home"

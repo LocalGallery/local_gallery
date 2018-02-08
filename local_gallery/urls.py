@@ -16,10 +16,9 @@ Including another URLconf
 from django.conf import settings
 from django.conf.urls.static import static
 from django.contrib import admin
-from django.urls import path
+from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 
-import locations.api_views
 import locations.views
 import projects.views
 
@@ -39,6 +38,9 @@ urlpatterns = [
     path('<slug:slug>/<int:location_pk>/<int:pk>/',
          locations.views.PhotoDetailView.as_view(),
          name='photo'),
+
+    path('accounts/', include('django.contrib.auth.urls')),
+
 ]
 
 # REST API urls:

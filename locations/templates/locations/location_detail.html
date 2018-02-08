@@ -1,15 +1,17 @@
 {% extends "base.html" %}
+{% load i18n %}
 {% load staticfiles lg %}
 
 {% block title %}{{ location.name }}'s Archive Gallery{% endblock %}
 
 {% block content %}
-    <div class="container-fluid">
+    <link rel="stylesheet" href="{% static "vendor/dropzone.css" %}">
 
-        <link rel="stylesheet" href="{% static "vendor/dropzone.css" %}">
+    <div class="container">
+
         <h4><b>{{ location.project.name }} - {{ location.name }}</b></h4>
 
-        <div class="card-columns container">
+        <div class="card-columns">
             {% for photo in location.photos.all %}
                 <div class="card">
                     <img class="card-img-top"
@@ -24,11 +26,22 @@
             {% endfor %}
         </div>
 
-        <form action="{% url "post_new_image" location.project.slug %}"
-              class="dropzone" id="dz">
-            {% csrf_token %}
-            <input type="hidden" name="location" value="{{ location.id }}"/>
-        </form>
+        {% if user.is_authenticated %}
+            <form action="{% url "post_new_image" location.project.slug %}"
+                  class="dropzone" id="dz">
+                {% csrf_token %}
+                <input type="hidden" name="location"
+                       value="{{ location.id }}"/>
+            </form>
+        {% else %}
+            <div class="alert alert-warning">
+                <a href="{% url "login" %}?next={{ request.path }}">
+                    {% trans "Please Login" %}
+                </a>
+                {% trans "to upload new photos" %}.
+
+            </div>
+        {% endif %}
 
     </div>
 
