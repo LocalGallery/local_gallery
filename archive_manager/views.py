@@ -1,5 +1,5 @@
-from functools import reduce
 import operator
+from functools import reduce
 
 from django.conf import settings
 from django.contrib.auth.mixins import LoginRequiredMixin
@@ -9,22 +9,27 @@ from django.http import JsonResponse
 from django.shortcuts import render, get_object_or_404, redirect
 from django.utils import html
 from django.utils.html import linebreaks
-from django.views.generic import CreateView, DetailView
-
+from django.views.generic import CreateView, DetailView, ListView
 from rest_framework import generics
-from rest_framework import response
 
 from .forms import PostPhoto, LocationForm
 from .models import Location, Photo, Project
-from .serializers import LocationSerializer, LocationPhotoSerializer, PhotoSerializer
+from .serializers import LocationSerializer, LocationPhotoSerializer, \
+    PhotoSerializer
 
 
-def home(request):
-    locations = Location.objects.all()
-    return render(request, 'archive_manager/index.html', {
-        'center': settings.MAP_CENTER,
-        'locations': locations,
-    })
+class ProjectListView(ListView):
+    model = Project
+
+class ProjectDetailView(DetailView):
+    model = Project
+
+# def home(request):
+#     locations = Location.objects.all()
+#     return render(request, 'archive_manager/index.html', {
+#         'center': settings.MAP_CENTER,
+#         'locations': locations,
+#     })
 
 
 def post_new(request):
@@ -46,6 +51,7 @@ def post_new(request):
     return render(request, 'archive_manager/post_edit.html', {
         'form': form,
     })
+
 
 class PhotoCreateView(LoginRequiredMixin, CreateView):
     model = Photo
@@ -71,7 +77,8 @@ class LocationDetailView(DetailView):
 
     def dispatch(self, request, *args, **kwargs):
         self.object = self.get_object()
-        self.project = get_object_or_404(Project, slug=kwargs['slug'], pk=self.object.project.pk)
+        self.project = get_object_or_404(Project, slug=kwargs['slug'],
+                                         pk=self.object.project.pk)
         return super().dispatch(request, *args, **kwargs)
 
 
@@ -129,7 +136,8 @@ class LocationPhotoList(generics.ListCreateAPIView):
     serializer_class = LocationPhotoSerializer
 
     def get_related_project_id(self, location_id):
-        return Location.objects.filter(id=location_id).values_list('project', flat=True)
+        return Location.objects.filter(id=location_id).values_list('project',
+                                                                   flat=True)
 
     def get_queryset(self):
         location_id = self.kwargs.get('pk')
@@ -150,11 +158,15 @@ class PhotoList(generics.ListAPIView):
     serializer_class = PhotoSerializer
 
     def get_locations(self, project_id):
-        return Location.objects.filter(project=project_id).values_list('id', flat=True)
+        return Location.objects.filter(project=project_id).values_list('id',
+                                                                       flat=True)
 
     def get_queryset(self):
         project_id = self.kwargs.get('pj_id')
-        queryset = self.queryset.filter(reduce(operator.or_, (Q(location_id=id) for id in self.get_locations(project_id))))
+        queryset = self.queryset.filter(reduce(operator.or_,
+                                               (Q(location_id=id) for id in
+                                                self.get_locations(
+                                                    project_id))))
         return queryset
 
 
@@ -163,16 +175,21 @@ class PhotoDetail(generics.RetrieveUpdateDestroyAPIView):
     serializer_class = PhotoSerializer
 
     def get_related_project_id(self, location_id):
-        return Location.objects.filter(id=location_id).values_list('project', flat=True)
+        return Location.objects.filter(id=location_id).values_list('project',
+                                                                   flat=True)
 
     def get_related_location_id(self, photo_id):
-        return Photo.objects.filter(id=photo_id).values_list('location', flat=True)
+        return Photo.objects.filter(id=photo_id).values_list('location',
+                                                             flat=True)
 
     def get_queryset(self):
         photo_id = self.kwargs.get('pk')
         project_id = self.kwargs.get('pj_id')
-        if project_id in self.get_related_project_id(self.get_related_location_id(photo_id)[0]):
+        if project_id in self.get_related_project_id(
+                self.get_related_location_id(photo_id)[0]):
             queryset = self.queryset.filter(id=photo_id)
         else:
             queryset = Photo.objects.none()
         return queryset
+
+

@@ -4,28 +4,33 @@
     <title>{% block title %}{% endblock %}</title>
     <link rel="stylesheet" type="text/css"
           href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0-beta.2/css/bootstrap.min.css"
-          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb" crossorigin="anonymous">
-    <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext' rel='stylesheet' type='text/css'>
+          integrity="sha384-PsH8R72JQ3SOdhVi3uxftmaW6Vc51MKb0q5P2rRUpPvrszuE4W1povHYgTpBfshb"
+          crossorigin="anonymous">
+    <link href='//fonts.googleapis.com/css?family=Lobster&subset=latin,latin-ext'
+          rel='stylesheet' type='text/css'>
     <link rel="apple-touch-icon" sizes="180x180"
           href="{% static 'archive_manager/images/favicons/apple-touch-icon.png' %}">
     <link rel="icon" type="image/png" sizes="32x32"
           href="{% static 'archive_manager/images/favicons/favicon-32x32.png' %}">
     <link rel="icon" type="image/png" sizes="16x16"
           href="{% static 'archive_manager/images/favicons/favicon-16x16.png' %}">
-    <link rel="manifest" href="{% static 'archive_manager/images/favicons/manifest.json' %}">
-    <link rel="mask-icon" href="{% static 'archive_manager/images/favicons/safari-pinned-tab.svg' %}" color="#5bbad5">
+    <link rel="manifest"
+          href="{% static 'archive_manager/images/favicons/manifest.json' %}">
+    <link rel="mask-icon"
+          href="{% static 'archive_manager/images/favicons/safari-pinned-tab.svg' %}"
+          color="#5bbad5">
     <meta name="theme-color" content="#ffffff">
     <link rel="stylesheet" href="{% static 'archive_manager/style.css' %}">
 </head>
 <body>
-<div class="container">
+<div class="container-fluid">
 
     <nav class="navbar navbar-fixed-top" role="navigation">
         <ul class="nav navbar-nav pull-sm-left">
             <li class="nav-item">
-                <a class="navbar-brand" href="https://www.pardes-hanna-karkur.muni.il/">
-                    <img src="{% static 'archive_manager/images/ph_c_logo.png' %}">
-                </a>
+                {% if project %}
+                    <img src="{{ project.logo_file.url }}">
+                {% endif %}
             </li>
         </ul>
 
@@ -38,7 +43,8 @@
         </ul>
         <ul class="nav navbar-nav pull-xs-right">
             <li class="nav-item navbar-right">
-                <a data-toggle="collapse" data-target="#topmenu" href="#" id="navbarDropdownMenuLink">
+                <a data-toggle="collapse" data-target="#topmenu" href="#"
+                   id="navbarDropdownMenuLink">
                     <div id="menuToggle">
                         <span class="hamburger"></span>
                         <span class="hamburger"></span>
@@ -80,10 +86,11 @@
             <li><a href="#">Contact</a></li>
         </ul>
     </div>
+    {% block content %}
+    {% endblock %}
+
 </div>
 
-{% block content %}
-{% endblock %}
 <script src="{% static 'vendor/jquery-3.2.1.js' %}"></script>
 <script src="{% static 'csrf.js' %}"></script>
 

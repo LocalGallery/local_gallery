@@ -7,13 +7,20 @@ from django.urls import reverse
 class Project(models.Model):
     name = models.CharField(max_length=100, unique=True)
     slug = models.SlugField(max_length=40)
-    logo_file = models.ImageField('Logo',
-                                  upload_to='photos/logos')
+    logo_file = models.ImageField('Logo', upload_to='photos/logos')
+    geom = models.PolygonField()
     center = models.PointField()
-    zoom_level = models.IntegerField()
 
     def __str__(self):
-        return "[{}]: {}".format(self.id, self.name)
+        return self.name
+
+    def get_absolute_url(self):
+        return reverse("project_detail", args=(self.slug,))
+
+    def bounds(self):
+        """Prepare extent to work with leaflet's LatLngBounds"""
+        x0, y0, x1, y1 = self.geom.extent
+        return [[y0, x0], [y1, x1]]
 
 
 class Location(models.Model):
@@ -41,8 +48,9 @@ class Location(models.Model):
 
 class Photo(models.Model):
     def get_path(instance, filename):
-        return 'photos/local_photos/' + str(instance.location.project.id) + '/' +\
-                    str(instance.location.id) + '/' + filename
+        return 'photos/local_photos/' + str(
+            instance.location.project.id) + '/' + \
+               str(instance.location.id) + '/' + filename
 
     created_at = models.DateTimeField(auto_now_add=True)
     name = models.CharField(max_length=300, null=True, blank=True)

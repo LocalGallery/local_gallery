@@ -24,11 +24,12 @@ from rest_framework.urlpatterns import format_suffix_patterns
 from archive_manager import views
 
 urlpatterns = [
-    path('', views.home, name="home"),
+    path('', views.ProjectListView.as_view(), name="home"),
     path('admin/', admin.site.urls),
     path('post/new/', views.post_new, name='post_new'),
     path('add-location/', views.create_location, name="create_location"),
 
+    path('<slug:slug>/', views.ProjectDetailView.as_view(), name='project_detail'),
     path('<slug:slug>/image/new/', views.PhotoCreateView.as_view(), name='post_new_image'),
     path('<slug:slug>/<int:pk>/', views.LocationDetailView.as_view(), name='location'),
 ]

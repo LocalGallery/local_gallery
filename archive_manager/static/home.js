@@ -3,10 +3,7 @@ $(function () {
     let renderLocation = function (name, info, lat, lng) {
         return `<h3>${name}</h3><div>${info}</div><br/>${lat}:${lng}`;
     };
-    const center = L.latLng(
-        parseFloat($('#map').data('center-lat')),
-        parseFloat($('#map').data('center-lng'))
-    );
+    const bounds = L.latLngBounds($('#map').data('bounds'));
 
     const formUrl = $('.locations').data('create-url');
 
@@ -29,7 +26,7 @@ $(function () {
         "simun shvilim": layer2,
     };
 
-    const map = L.map('map', {center: center, zoom: 15});
+    const map = L.map('map').fitBounds(bounds);
 
     L.control.layers(baseMaps).addTo(map);
     layer.addTo(map);
@@ -78,7 +75,6 @@ $(function () {
         const place = $(el);
         const lat = place.data('lat');
         const lng = place.data('lng');
-        console.log(lat, lng);
         const marker = L.marker([lat, lng]);
         marker.addTo(map);
 
