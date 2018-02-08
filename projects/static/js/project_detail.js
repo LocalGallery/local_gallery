@@ -83,11 +83,8 @@ $(function () {
         marker.bindPopup(renderLocation(name, info, lat, lng));
 
 
-    marker.on('popupopen', () => {
+        marker.on('popupopen', () => {
             const url = place.find(".link").attr('href');
-            const div = $("#sidebar").load(url);
-            $("#sidebar").empty().append(div);
-            console.log(url);
         });
     });
 
