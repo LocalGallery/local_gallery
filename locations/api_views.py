@@ -30,23 +30,24 @@ class LocationDetail(generics.RetrieveUpdateDestroyAPIView):
 
     def get_queryset(self):
         project = self.kwargs.get('pj_id')
-        id = self.kwargs.get('pk')
-        queryset = self.queryset.filter(id=id, project=project)
+        id_ = self.kwargs.get('pk')
+        queryset = self.queryset.filter(id=id_, project=project)
         return queryset
+
+
+def get_related_project_id(location_id):
+    return Location.objects.filter(id=location_id).values_list('project',
+                                                               flat=True)
 
 
 class LocationPhotoList(generics.ListCreateAPIView):
     queryset = Photo.objects.all()
     serializer_class = LocationPhotoSerializer
 
-    def get_related_project_id(self, location_id):
-        return Location.objects.filter(id=location_id).values_list('project',
-                                                                   flat=True)
-
     def get_queryset(self):
         location_id = self.kwargs.get('pk')
         project_id = self.kwargs.get('pj_id')
-        if project_id in self.get_related_project_id(location_id):
+        if project_id in get_related_project_id(location_id):
             queryset = self.queryset.filter(location_id=location_id)
         else:
             queryset = Photo.objects.none()
@@ -56,41 +57,38 @@ class LocationPhotoList(generics.ListCreateAPIView):
         location = Location.objects.all().filter(id=self.kwargs.get('pk'))[0]
         serializer.save(location=location)
 
+def get_locations(project_id):
+    return Location.objects.filter(project=project_id).values_list('id',
+                                                                   flat=True)
 
 class PhotoList(generics.ListAPIView):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
 
-    def get_locations(self, project_id):
-        return Location.objects.filter(project=project_id).values_list('id',
-                                                                       flat=True)
-
     def get_queryset(self):
         project_id = self.kwargs.get('pj_id')
         queryset = self.queryset.filter(reduce(operator.or_,
                                                (Q(location_id=id) for id in
-                                                self.get_locations(
-                                                    project_id))))
+                                                get_locations(project_id))))
         return queryset
+
+
+
+def get_related_location_id(photo_id):
+    return Photo.objects.filter(id=photo_id).values_list('location',
+                                                         flat=True)
 
 
 class PhotoDetail(generics.RetrieveUpdateDestroyAPIView):
     queryset = Photo.objects.all()
     serializer_class = PhotoSerializer
 
-    def get_related_project_id(self, location_id):
-        return Location.objects.filter(id=location_id).values_list('project',
-                                                                   flat=True)
-
-    def get_related_location_id(self, photo_id):
-        return Photo.objects.filter(id=photo_id).values_list('location',
-                                                             flat=True)
 
     def get_queryset(self):
         photo_id = self.kwargs.get('pk')
         project_id = self.kwargs.get('pj_id')
-        if project_id in self.get_related_project_id(
-                self.get_related_location_id(photo_id)[0]):
+        if project_id in get_related_project_id(
+                get_related_location_id(photo_id)[0]):
             queryset = self.queryset.filter(id=photo_id)
         else:
             queryset = Photo.objects.none()

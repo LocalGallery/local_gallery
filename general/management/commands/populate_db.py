@@ -3,7 +3,7 @@ import json
 import random
 from pathlib import Path
 
-import faker
+from faker import Faker
 import silly
 from django.conf import settings
 from django.contrib.auth.models import User
@@ -36,7 +36,7 @@ class Command(BaseCommand):
     PHOTOS_PER_LOCATION = 16
 
     def handle(self, *args, **options):
-        fake = faker.Faker("he_IL")
+        fake = Faker("he_IL")
         images = glob.glob(f"{IMG_PATH}/image*.jpeg")
 
         try:
@@ -57,11 +57,11 @@ class Command(BaseCommand):
                     project.logo_file.save(f"logo{i + 1}.jpeg", File(f))
                     project.save()
 
-                    for location_id in range(
+                    for _ in range(
                             self.LOCATIONS_PER_PROJECT):
                         location = Location()
                         location.project = project
-                        location.name = fake.street_name()  + " " + fake.street_name()
+                        location.name = fake.street_name() + " " + fake.street_name()
                         x0, y0, x1, y1 = project.geom.extent
                         x = random.uniform(x0, x1)
                         y = random.uniform(y0, y1)
@@ -69,7 +69,7 @@ class Command(BaseCommand):
                         location.information = silly.sentence()
                         location.save()
 
-                        for photo_id in range(
+                        for _ in range(
                                 random.randint(0,
                                                self.PHOTOS_PER_LOCATION)):
                             photo = Photo()

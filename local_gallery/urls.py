@@ -20,8 +20,8 @@ from django.urls import path, include
 from rest_framework.urlpatterns import format_suffix_patterns
 
 import locations.views
-import projects.views
 from locations import api_views
+import projects.views
 
 urlpatterns = [
     path('', projects.views.ProjectListView.as_view(), name="home"),

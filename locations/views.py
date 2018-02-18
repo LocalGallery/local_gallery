@@ -37,8 +37,8 @@ class LocationDetailView(DetailView):
     model = Location
 
     def dispatch(self, request, *args, **kwargs):
-        self.object = self.get_object()
-        self.project = get_object_or_404(Project, slug=kwargs['slug'],
+        self.object = self.get_object() # pylint: disable=attribute-defined-outside-init
+        self.project = get_object_or_404(Project, slug=kwargs['slug'], # pylint: disable=attribute-defined-outside-init
                                          pk=self.object.project.pk)
         return super().dispatch(request, *args, **kwargs)
 
@@ -75,7 +75,7 @@ class PhotoCreateView(LoginRequiredMixin, CreateView):
     form_class = CreatePhotoForm
 
     def dispatch(self, request, *args, **kwargs):
-        self.project = get_object_or_404(Project, slug=kwargs['slug'])
+        self.project = get_object_or_404(Project, slug=kwargs['slug']) # pylint: disable=attribute-defined-outside-init
         return super().dispatch(request, *args, **kwargs)
 
     def get_form(self, form_class=None):

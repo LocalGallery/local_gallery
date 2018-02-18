@@ -18,23 +18,28 @@ class Migration(migrations.Migration):
         migrations.CreateModel(
             name='Location',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True, primary_key=True,
+                                        serialize=False, verbose_name='ID')),
                 ('name', models.CharField(max_length=100)),
                 ('point', django.contrib.gis.db.models.fields.PointField(srid=4326)),
                 ('information', models.TextField(blank=True)),
-                ('project', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='locations', to='projects.Project')),
+                ('project', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                              related_name='locations', to='projects.Project')),
             ],
         ),
         migrations.CreateModel(
             name='Photo',
             fields=[
-                ('id', models.AutoField(auto_created=True, primary_key=True, serialize=False, verbose_name='ID')),
+                ('id', models.AutoField(auto_created=True,
+                                        primary_key=True, serialize=False, verbose_name='ID')),
                 ('created_at', models.DateTimeField(auto_now_add=True)),
                 ('name', models.CharField(blank=True, max_length=300, null=True)),
-                ('photo_file', models.ImageField(upload_to=locations.models.get_photo_path, verbose_name='Local Photo')),
+                ('photo_file', models.ImageField(upload_to=locations.models.get_photo_path,
+                                                 verbose_name='Local Photo')),
                 ('date_taken', models.DateField(blank=True, null=True)),
                 ('long_desc', models.TextField()),
-                ('location', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE, related_name='photos', to='locations.Location')),
+                ('location', models.ForeignKey(on_delete=django.db.models.deletion.CASCADE,
+                                               related_name='photos', to='locations.Location')),
             ],
             options={
                 'ordering': ('location', 'date_taken', 'name'),

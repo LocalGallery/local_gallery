@@ -9,15 +9,14 @@ name = "pypi"
 
 django = "*"
 "psycopg2" = "*"
-pytz = "*"
 pillow = "*"
-djangorestframework = "*"
 ipython = "*"
 django-extensions = "*"
 djangorestframework-gis = "*"
 silly = "*"
 "django-bootstrap4" = "*"
 faker = "*"
+pylint-django = "*"
 
 
 [dev-packages]

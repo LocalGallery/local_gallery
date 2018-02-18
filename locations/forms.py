@@ -5,12 +5,13 @@ from django import forms
 from locations.models import Photo, Location
 
 
+def last_years():
+    first_year = datetime.datetime.now().year - 200
+    return list(range(datetime.datetime.now().year, first_year, -1))
+
+
 class CreatePhotoForm(forms.ModelForm):
     class Meta:
-        def last_years():
-            first_year = datetime.datetime.now().year - 200
-            return list(range(datetime.datetime.now().year, first_year, -1))
-
         model = Photo
         widgets = {
             'content': forms.Textarea(attrs={'cols': 80, 'rows': 20}),

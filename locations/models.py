@@ -25,7 +25,7 @@ class Location(models.Model):
 
     def first_photo_url(self):
         try:
-            photo =  self.photos.all()[0]
+            photo = self.photos.all()[0]
             return photo.photo_file.url
         except IndexError:
             return static("images/logo.jpg")
@@ -60,5 +60,3 @@ class Photo(models.Model):
 
     def get_edit_url(self):
         return self.get_absolute_url("photo_update")
-
-

@@ -1,5 +1,5 @@
-from locations.models import Location, Photo
 from rest_framework import serializers
+from locations.models import Location, Photo
 
 
 class LocationSerializer(serializers.ModelSerializer):
