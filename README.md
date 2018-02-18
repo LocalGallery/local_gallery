@@ -5,6 +5,7 @@
 
 * [Python](https://www.python.org/downloads/) (>= 3.6.3)
 * PostgreSQL & PostGIS. Installation help [here](https://github.com/nonZero/setups).
+* [OSGeo4W](https://trac.osgeo.org/osgeo4w/) (Windows only)
 * [pipenv](https://docs.pipenv.org/)
 
 ## Create DB
