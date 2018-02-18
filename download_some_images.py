@@ -19,7 +19,7 @@ def download_image(i_, w, h, prefix="image"):
 
 with ThreadPoolExecutor(max_workers=20) as e:
     # download logos
-    futs = [e.submit(download_image, i, 160, 100, "logo") for i in range(3)]
+    futs = [e.submit(download_image, i, 160, 100, "logo") for i in range(4)]
 
     # download sample images
     for i in range(400):

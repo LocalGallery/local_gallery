@@ -44,7 +44,7 @@ class Command(BaseCommand):
         except IntegrityError:
             pass
 
-        with SAMPLE_PROJECTS_FILE.open() as f:
+        with SAMPLE_PROJECTS_FILE.open(encoding="utf-8") as f:
             for i, proj in enumerate(load_projects(json.load(f))):
                 with transaction.atomic():
                     print(proj['slug'])
