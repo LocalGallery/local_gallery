@@ -8,3 +8,4 @@ __pycache__
 requirements.txt
 local_gallery.pyproj
 local_gallery.sln
+general/dummy_data/
