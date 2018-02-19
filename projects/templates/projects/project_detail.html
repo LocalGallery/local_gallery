@@ -27,6 +27,8 @@
                                        class="name">
                                         {{ location.name }}
                                     </a>
+                                    <span class="info" hidden> {{ location.information }} </span>
+                                    <span class="url" hidden> {{ location.get_absolute_url }} </span>
                                     <small class="muted">
                                         ({{ location.photos.count }} {% trans "Photos" %})
                                     </small>

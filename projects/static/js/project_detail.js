@@ -1,7 +1,7 @@
 $(function () {
 
-    let renderLocation = function (name, info, lat, lng) {
-        return `<h3>${name}</h3><div>${info}</div><br/>${lat}:${lng}`;
+    let renderLocation = function (name, url, info, lat, lng) {
+        return `<a href="${url}"><h3>${name}</h3></a><div>${info}</div><br/>${lat}:${lng}`;
     };
     const bounds = L.latLngBounds($('#map').data('bounds'));
 
@@ -53,7 +53,7 @@ $(function () {
                 loading.html("saving....");
                 autoRemove = false;
                 $.post(formUrl, data, (resp) => {
-                    const msg = renderLocation(resp.name, resp.info, resp.lat, resp.lng);
+                    const msg = renderLocation(resp.name, '', resp.info, resp.lat, resp.lng);
                     marker.getPopup().setContent(msg);
                     marker.closePopup();
                 });
@@ -79,8 +79,9 @@ $(function () {
         marker.addTo(map);
 
         const name = place.find('.name').html();
+        const url = place.find('.url').html();
         const info = place.find('.info').html();
-        marker.bindPopup(renderLocation(name, info, lat, lng));
+        marker.bindPopup(renderLocation(name, url, info, lat, lng));
 
 
         marker.on('popupopen', () => {
