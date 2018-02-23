@@ -6,6 +6,7 @@ __pycache__
 /.venv/
 .idea
 requirements.txt
-local_gallery.pyproj
-local_gallery.sln
+*.pyproj
+*.sln
 general/dummy_data/
+*.code-workspace
