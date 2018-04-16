@@ -62,3 +62,17 @@
 Run the server:
 
     python manage.py runserver
+
+
+## Developing the Vue.js app
+
+### Setup
+
+    cd logal
+    npm install
+
+### Run
+
+    npx webpack --config build/webpack.dev.conf.js --watch
+
+Access via <http://localhost:8000/pardes-hana/app/>

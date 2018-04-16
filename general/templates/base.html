@@ -63,9 +63,7 @@
                 </ul>
                 {% if user.is_authenticated %}
                     <span class="navbar-text">
-                        {{ user }}
-                    |
-                    &nbsp;
+                        {{ user }} |
                     </span>
                     <a href="{% url "logout" %}">
                         {% trans "Logout" %}

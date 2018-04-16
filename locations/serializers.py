@@ -3,17 +3,22 @@ from rest_framework import serializers
 
 
 class LocationSerializer(serializers.ModelSerializer):
+    coords = serializers.SerializerMethodField()
 
     class Meta:
         model = Location
-        fields = ('id', 'project', 'name', 'point', 'information')
+        fields = ('id', 'project', 'name', 'point', 'information', 'coords')
         read_only_fields = ('project',)
+
+    def get_coords(self, instance):
+        return instance.point.coords[::-1]
 
 
 class LocationPhotoSerializer(serializers.ModelSerializer):
-    project_id = serializers.PrimaryKeyRelatedField(source='location.project.id',
-                                                    many=False,
-                                                    read_only=True)
+    project_id = serializers.PrimaryKeyRelatedField(
+        source='location.project.id',
+        many=False,
+        read_only=True)
     location_id = serializers.PrimaryKeyRelatedField(source='location.id',
                                                      many=False,
                                                      read_only=True)
@@ -25,6 +30,7 @@ class LocationPhotoSerializer(serializers.ModelSerializer):
     date_taken = serializers.DateField()
     created_at = serializers.DateTimeField(read_only=True)
     long_desc = serializers.CharField()
+
     # TODO: tags_array
 
     class Meta:
@@ -41,9 +47,10 @@ class LocationPhotoSerializer(serializers.ModelSerializer):
 
 
 class PhotoSerializer(serializers.ModelSerializer):
-    project_id = serializers.PrimaryKeyRelatedField(source='location.project.id',
-                                                    many=False,
-                                                    read_only=True)
+    project_id = serializers.PrimaryKeyRelatedField(
+        source='location.project.id',
+        many=False,
+        read_only=True)
     location_id = serializers.PrimaryKeyRelatedField(source='location.id',
                                                      many=False,
                                                      read_only=True)
@@ -55,6 +62,7 @@ class PhotoSerializer(serializers.ModelSerializer):
     date_taken = serializers.DateField()
     created_at = serializers.DateTimeField(read_only=True)
     long_desc = serializers.CharField()
+
     # TODO: tags_array
 
     class Meta:

@@ -44,6 +44,7 @@ INSTALLED_APPS = [
     'general',
     'projects',
     'locations',
+    'webpack_loader',
 
 ]
 
@@ -166,3 +167,18 @@ BOOTSTRAP4 = {
 
 LOGIN_REDIRECT_URL = "home"
 LOGOUT_REDIRECT_URL = "home"
+
+STATICFILES_DIRS = (
+    os.path.join(BASE_DIR, 'logal/dist'),
+)
+
+WEBPACK_LOADER = {
+    'DEFAULT': {
+        'CACHE': not DEBUG,
+        'BUNDLE_DIR_NAME': 'webpack_bundles/',  # must end with slash
+        'STATS_FILE': os.path.join(BASE_DIR, 'logal/build/webpack-stats.json'),
+        'POLL_INTERVAL': 0.1,
+        'TIMEOUT': None,
+        'IGNORE': ['.+\.hot-update.js', '.+\.map']
+    }
+}

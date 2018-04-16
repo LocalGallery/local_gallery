@@ -18,6 +18,7 @@ djangorestframework-gis = "*"
 silly = "*"
 "django-bootstrap4" = "*"
 faker = "*"
+django-webpack-loader = "*"
 
 
 [dev-packages]

@@ -9,3 +9,7 @@ class ProjectListView(ListView):
 
 class ProjectDetailView(DetailView):
     model = Project
+
+
+class ProjectAppView(ProjectDetailView):
+    template_name = "projects/project_app.html"

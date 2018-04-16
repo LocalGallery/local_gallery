@@ -32,6 +32,8 @@ urlpatterns = [
 
     path('<slug:slug>/', projects.views.ProjectDetailView.as_view(),
          name='project_detail'),
+    path('<slug:slug>/app/', projects.views.ProjectAppView.as_view(),
+         name='project_app'),
     path('<slug:slug>/create-photo/', locations.views.PhotoCreateView.as_view(),
          name='post_new_image'),
     path('<slug:slug>/<int:pk>/', locations.views.LocationDetailView.as_view(),
